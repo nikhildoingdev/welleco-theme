@@ -1,0 +1,455 @@
+{% doc %}
+  Renders a slide-in filters drawer for collection pages with facets and optional sorting. 
+  Uses Alpine.js for open/close state and persists the last opened facet between visits.
+
+  @param {collection} results - The collection object providing filters/sort options
+  @param {boolean} enable_filtering - Show filter facets
+  @param {boolean} enable_sorting - Show sorting select inside the drawer
+  @param {string} color_scheme - Color scheme for the drawer (optional, defaults to 'scheme-1')
+  @param {string} section_id - Unique identifier for the section (required for proper DOM IDs)
+  @param {string} show_filter_count - Show filter count
+
+
+  @example
+  {% render 'component-filters-drawer', results: collection, enable_sorting: true, enable_filtering: true, color_scheme: 'scheme-1', section_id: section.id %}
+{% enddoc %}
+
+{%- style -%}
+  .filters-drawer {
+    width: calc(100% - 50px);
+    max-width: 370px;
+  }
+
+  .drawer-main-wrapper:not(.drawer-active) .drawer-overlay {
+    opacity: 0;
+    transition: opacity 0.4s, width 0s linear 0.4s, visibility 0s linear 0.4s;
+    visibility: hidden;
+    width: 0;
+    pointer-events: none;
+  }
+
+  .drawer-main-wrapper:not(.drawer-active) .drawer__wrapper {
+    transform: translate(100%, 0px);
+  }
+
+  .drawer__facet-button-trigger {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+  }
+
+  .drawer__facet-button-trigger span {
+    margin-left: 10px;
+    font-size: 1.6rem;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .drawer__facet-button-trigger:hover span {
+    text-decoration: underline;
+  }
+
+  .facets__header-drawer {
+    position: relative;
+  }
+
+  .child-facets__header-wrapper {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+    padding: 15px 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .mobile-facets__heading {
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+
+  .drawer__count-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 23px;
+  }
+
+  .drawer__count-wrapper .loading-overlay__spinner {
+    width: 15px;
+    height: 15px;
+  }
+
+  .mobile-facets__count {
+    color: rgba(var(--color-foreground), 0.7);
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .drawer-close-icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+  }
+
+  .drawer-close-icon .svg-wrapper {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    right: -2px;
+  }
+
+  .drawer__child-facets-wrapper,
+  .drawer__child-sorting-wrapper {
+    padding: 30px 25px 15px 25px;
+  }
+
+  .drawer__child-sorting-wrapper {
+    padding-top: 15px;
+  }
+
+  .mobile-facets__block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 17px 0px;
+    cursor: pointer;
+  }
+
+  .mobile-facets__block span {
+    font-size: 16px;
+    letter-spacing: 0.6px;
+  }
+
+  .mobile-facets__block .svg-wrapper {
+    width: 15px;
+    height: 15px;
+  }
+
+  .drawer__facets-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 50px;
+  }
+
+  .facets__values-drawer {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transform: translate(100%);
+    background: white;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+    z-index: 10;
+    overflow-y: hidden;
+  }
+
+  .facets__values-drawer.child-drawer-active {
+    transform: translate(0px);
+  }
+
+  .mobile-facets__close-button {
+    padding: 12px 26px;
+    padding-bottom: 20px;
+    border: 0px;
+    background: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .mobile-facets__close-button span {
+    margin-left: 10px;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+  }
+
+  .mobile-facets__close-button .svg-wrapper {
+    transform: rotate(180deg);
+  }
+
+  .filter__values-wrapper {
+    padding: 10px 26px;
+    padding-top: 0px;
+    overflow-y: scroll;
+    height: 100%;
+    max-height: calc(100% - 200px);
+    display: block;
+    padding-bottom: 50px;
+  }
+
+  .filter__values-wrapper .facet-checkbox {
+    padding: 17px 0px;
+    font-size: 16px;
+  }
+
+  .filter__values-wrapper .facet-checkbox .svg-wrapper {
+    top: 11px;
+    transform: translate(0px, 10px);
+  }
+
+  .mobile-facets__footer {
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+    padding: 20px;
+    bottom: 0;
+    position: sticky;
+    display: flex;
+    z-index: 9;
+    margin-top: auto;
+    background-color: rgb(var(--color-background));
+    background: white;
+  }
+
+  .mobile-facets__clear-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-facets__footer > * {
+    width: 50%;
+  }
+
+  .mobile-facets__footer button {
+    border: none;
+    background: black;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .mobile-facets__clear-wrapper a {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .drawer__child-sorting-wrapper .facet-filters__field {
+    justify-content: space-between;
+    margin-right: 0px;
+  }
+
+  body:has(.drawer-main-wrapper.drawer-active) {
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 768px) {
+    .drawer-main-wrapper .mobile-facets__heading {
+      font-size: 14px;
+    }
+    .drawer-main-wrapper .mobile-facets__count {
+      font-size: 13px;
+    }
+    .drawer-main-wrapper .mobile-facets__block span {
+      font-size: 15px;
+    }
+    .drawer-main-wrapper .mobile-facets__close-button span {
+      font-size: 15px;
+    }
+    .drawer-main-wrapper .mobile-facets__arrow .svg-wrapper {
+      width: 15px;
+    }
+    .drawer-main-wrapper .facet-filters__sort {
+      font-size: 12px;
+    }
+    .drawer-main-wrapper .filter__values-wrapper .facet-checkbox {
+      font-size: 15px;
+    }
+    .drawer-main-wrapper .mobile-facets__close-button .svg-wrapper {
+      width: 15px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  x-data="{ open: false }"
+  class="drawer-main-wrapper color-{{ color_scheme | default: 'scheme-1' }} {% unless enable_filtering %}large-up-hide{% endunless %}"
+  :class="{ 'drawer-active': open }"
+  id="Details-{{ section_id }}"
+>
+  <button type="button" @click="open = !open" class="drawer__facet-button-trigger">
+    <div class="svg-wrapper">
+      {{ 'icon-filter.svg' | inline_asset_content }}
+    </div>
+    <div class="desktop-facet-text-wrapper small-hide">
+      {%- if enable_filtering -%}
+        <span>{{ 'products.facets.filter_button' | t }}</span>
+      {%- elsif enable_sorting -%}
+        <span>{{ 'products.facets.sort_button' | t }}</span>
+      {%- endif -%}
+    </div>
+    <div class="mobile-facet-text-wrapper large-up-hide">
+      {%- if enable_filtering and enable_sorting -%}
+        <span>{{ 'products.facets.filter_and_sort' | t }}</span>
+      {%- elsif enable_filtering -%}
+        <span>{{ 'products.facets.filter_button' | t }}</span>
+      {%- elsif enable_sorting -%}
+        <span>{{ 'products.facets.sort_button' | t }}</span>
+      {%- endif -%}
+    </div>
+  </button>
+
+  <div class="drawer-overlay" @click="open = !open">
+    <span hidden>{{ 'accessibility.close' | t }}</span>
+  </div>
+
+  <div class="drawer__wrapper filters-drawer">
+    <div class="facets__header-drawer">
+      <div class="child-facets__header-wrapper">
+        <div class="mobile-facets__header-inner">
+          <h2 class="mobile-facets__heading large-up-hide">
+            {%- if enable_filtering and enable_sorting -%}
+              {{ 'products.facets.filter_and_sort' | t }}
+            {%- elsif enable_filtering -%}
+              {{ 'products.facets.filter_button' | t }}
+            {%- elsif enable_sorting -%}
+              {{ 'products.facets.sort_button' | t }}
+            {%- endif -%}
+          </h2>
+          <h2 class="mobile-facets__heading small-hide">
+            {%- if enable_filtering -%}
+              {{ 'products.facets.filter_button' | t }}
+            {%- elsif enable_sorting -%}
+              {{ 'products.facets.sort_button' | t }}
+            {%- endif -%}
+          </h2>
+          <div class="drawer__count-wrapper">
+            <p class="mobile-facets__count" id="drawer-results-count-{{ section_id }}">
+              {%- if collection.products_count == collection.all_products_count -%}
+                {{ 'products.facets.results_count' | t: count: collection.products_count }}
+              {% else %}
+                {{
+                  'products.facets.results_count_of'
+                  | t: count: collection.products_count, total: collection.all_products_count
+                }}
+              {% endif %}
+            </p>
+            <div id="drawer-loading-spinner-{{ section_id }}" class="loading-overlay__spinner"></div>
+          </div>
+        </div>
+        <div class="drawer-close-icon" @click="open = !open">
+          <div class="svg-wrapper">
+            {{ 'icon-close.svg' | inline_asset_content }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <form id="filters-form-drawer" class="filters__drawer-form">
+      <div class="drawer__facets-wrapper" x-data="{ openFilter: $persist(true).as('openFilter') }">
+        <div class="drawer__child-facets-wrapper">
+          {%- for f in results.filters -%}
+            <div
+              id="Details-{{ f.param_name | escape }}-{{ section_id }}-Drawer"
+              class="single-facet__link js-filter"
+            >
+              <div
+                class="mobile-facets__block"
+                @click="openFilter = openFilter === {{ forloop.index }} ? null : {{ forloop.index }}"
+              >
+                <span>{{ f.label }}</span>
+                <span class="mobile-facets__arrow">
+                  <div class="svg-wrapper">
+                    {{ 'icon-arrow.svg' | inline_asset_content }}
+                  </div>
+                </span>
+              </div>
+              <div class="facets__values-drawer" :class="{ 'child-drawer-active': openFilter === {{ forloop.index }} }">
+                <button
+                  type="button"
+                  class="mobile-facets__close-button"
+                  @click.stop="openFilter = null"
+                >
+                  <div class="svg-wrapper">
+                    {{ 'icon-arrow.svg' | inline_asset_content }}
+                  </div>
+                  <span>{{ f.label }}</span>
+                </button>
+                <div class="filter__values-wrapper">
+                  {% if f.type == 'price_range' %}
+                    {% render 'component-filters-price-range',
+                      filter: f,
+                      id_prefix: 'Filter-',
+                    %}
+                  {% else %}
+                    {%- for v in f.values -%}
+                      {%- assign input_id = 'Filter-Drawer-'
+                        | append: f.param_name
+                        | escape
+                        | append: '-'
+                        | append: forloop.index
+                      -%}
+                      <label class="facet-checkbox">
+                        <input
+                          id="{{ input_id }}"
+                          type="checkbox"
+                          name="{{ v.param_name }}"
+                          value="{{ v.value }}"
+                          data-render-section="filters-form-drawer"
+                          {% if v.active %}
+                            checked
+                          {% endif -%}
+                          {% if v.count == 0 and v.active == false %}
+                            disabled
+                          {% endif -%}
+                        >
+                        {{- 'icon-square.svg' | inline_asset_content -}}
+                        <div class="svg-wrapper">
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                        </div>
+                        {{- v.label }} {% if show_filter_count != blank %} ({{ v.count }}){% endif %}
+                      </label>
+                    {%- endfor -%}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if enable_sorting -%}
+          <div class="drawer__child-sorting-wrapper">
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+            <div id="sort-by-drawer-{{ section_id }}" class="facet-filters__field large-up-hide">
+              <h2 class="facet-filters__label">
+                <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+              </h2>
+              <select
+                data-render-section="filters-form-drawer"
+                name="sort_by"
+                id="SortBy"
+                class="facet-filters__sort"
+              >
+                {%- for option in collection.sort_options -%}
+                  <option
+                    value="{{ option.value | escape }}"
+                    {% if option.value == sort_by %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    {{ option.name | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </form>
+  </div>
+</div>
