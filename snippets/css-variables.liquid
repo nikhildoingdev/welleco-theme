@@ -10,7 +10,7 @@
   [x-cloak] {
     display: none !important;
   }
-  
+
   {% # Loads all font variantions with display: swap %}
   {{ settings.type_body_font | font_face: font_display: 'swap' }}
   {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
@@ -73,12 +73,23 @@
 
 
   :root {
-    --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+
+
+    /* Functionality to use custom font */
+    {% if settings.primary_font == 'custom' %}
+      --font-body-family: 'Futura Cyrillic', sans-serif;
+      --font-heading-family: 'Futura Cyrillic', sans-serif;
+      {% else %}
+      --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+      --font-heading-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    {% endif %}
+
+
     --font-body-style: {{ settings.type_body_font.style }};
     --font-body-weight: {{ settings.type_body_font.weight }};
     --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 900 }};
     --font-body-scale: 1;
-    --font-heading-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    
     --font-heading-style: {{ settings.type_heading_font.style }};
     --font-heading-weight: {{ settings.type_heading_font.weight }};
     --font-heading-scale: 1;

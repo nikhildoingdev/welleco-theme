@@ -18,6 +18,9 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {% # Fonts CSS %}
+    {{ 'fonts.css' |  asset_url |  stylesheet_tag: preload: true}}
+
     {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 

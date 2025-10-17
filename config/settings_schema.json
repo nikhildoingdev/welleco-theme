@@ -37,6 +37,16 @@
     "name": "t:general.typography",
     "settings": [
       {
+        "type": "select",
+        "id": "primary_font",
+        "label": "Primary Font",
+        "options": [
+          { "value": "shopify", "label": "Shopify" },
+          { "value": "custom", "label": "Custom" }
+        ],
+        "default": "shopify"
+      },
+      {
         "type": "header",
         "content": "t:general.fonts"
       },
@@ -61,7 +71,7 @@
         "type": "range",
         "id": "max_page_width",
         "min": 1200,
-        "max": 1800,
+        "max": 2000,
         "step": 100,
         "default": 1600,
         "unit": "px",
@@ -80,7 +90,7 @@
       {
         "type": "range",
         "id": "min_page_margin",
-        "min": 10,
+        "min": 0,
         "max": 100,
         "step": 1,
         "unit": "px",
