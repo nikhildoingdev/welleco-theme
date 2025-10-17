@@ -133,8 +133,22 @@
       "content": "Background Settings"
     },
     {
+      "type": "select",
+      "id": "background_layout",
+      "label": "Background Layout",
+      "options": [
+        { "value": "single", "label": "Single" },
+        { "value": "split", "label": "Split" }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "header",
+      "content": "Primary Background Settings"
+    },
+    {
       "type": "radio",
-      "id": "background_type",
+      "id": "primary_background_type",
       "label": "Background Type",
       "options": [
         { "value": "image", "label": "Image" },
@@ -144,19 +158,53 @@
     },
     {
       "type": "image_picker",
-      "id": "image_background",
+      "id": "primary_image_background",
       "label": "Image Background"
     },
     {
       "type": "video",
-      "id": "video_background_hosted",
+      "id": "primary_video_background_hosted",
       "label": "Hosted Video Background"
     },
     {
       "type": "url",
-      "id": "video_background_url",
+      "id": "primary_video_background_url",
       "label": "Video URL (YouTube/Vimeo)",
       "info": "Use hosted video above for better performance and reliability. External URLs might require custom JS for true background effect."
+    },
+    {
+      "type": "header",
+      "content": "Secondary Background Settings"
+    },
+    {
+      "type": "radio",
+      "id": "secondary_background_type",
+      "label": "Background Type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image_background",
+      "label": "Image Background"
+    },
+    {
+      "type": "video",
+      "id": "secondary_video_background_hosted",
+      "label": "Hosted Video Background"
+    },
+    {
+      "type": "url",
+      "id": "secondary_video_background_url",
+      "label": "Video URL (YouTube/Vimeo)",
+      "info": "Use hosted video above for better performance and reliability. External URLs might require custom JS for true background effect."
+    },
+    {
+      "type": "header",
+      "content": "Overlay Settings"
     },
     {
       "type": "color",
