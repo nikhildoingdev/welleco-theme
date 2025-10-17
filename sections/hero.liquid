@@ -5,10 +5,18 @@
 
 {%- liquid
   assign section_id = 'hero-banner-' | append: section.id
-  assign background_type = section.settings.background_type
-  assign image_background = section.settings.image_background
-  assign video_background_url = section.settings.video_background_url
-  assign video_background_hosted = section.settings.video_background_hosted
+  assign background_layout = section.settings.background_layout
+
+  
+  assign primary_background_type = section.settings.primary_background_type
+  assign primary_image_background = section.settings.primary_image_background
+  assign primary_video_background_url = section.settings.primary_video_background_url
+  assign primary_video_background_hosted = section.settings.primary_video_background_hosted
+
+  assign secondary_background_type = section.settings.secondary_background_type
+  assign secondary_image_background = section.settings.secondary_image_background
+  assign secondary_video_background_url = section.settings.secondary_video_background_url
+  assign secondary_video_background_hosted = section.settings.secondary_video_background_hosted
 
   assign stars_text = section.settings.stars_text
   assign heading = section.settings.heading
@@ -41,48 +49,38 @@
   }
 </style>
 
-<div id="{{ section_id }}" class="hero-banner hero-banner-section">
-  <div class="hero-banner__background">
-    {% if background_type == 'video' %}
-      {% if video_background_hosted != blank %}
-        {{ video_background_hosted | video_tag: autoplay: true, loop: true, muted: true, playsinline: true }}
-      {% elsif video_background_url != blank %}
-        {% comment %}
-          Assuming YouTube or Vimeo URL - requires JS for proper embedding background
-          Basic iframe fallback - might not cover full background well
-        {% endcomment %}
-        {% if video_background_url contains 'youtube.com' or video_background_url contains 'youtu.be' %}
-          {% assign video_id = video_background_url | split: 'v=' | last | split: '&' | first | split: '/' | last %}
-          <iframe
-            src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1&mute=1&loop=1&playlist={{ video_id }}&controls=0&showinfo=0&autohide=1&modestbranding=1&playsinline=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-          ></iframe>
-        {% elsif video_background_url contains 'vimeo.com' %}
-          {% assign video_id = video_background_url | split: '/' | last %}
-          <iframe
-            src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&loop=1&muted=1&controls=0&background=1"
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-          ></iframe>
-        {% endif %}
-        {% comment %} NOTE: External video URLs (YouTube/Vimeo) often require JavaScript for true background video behavior. This is a basic iframe attempt. Hosted video is recommended. {% endcomment %}
-      {% endif %}
-    {% else %}
-      {% if image_background != blank %}
-        {{
-          image_background
-          | image_url: width: 2000
-          | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000', class: ''
-        }}
-      {% else %}
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-      {% endif %}
-    {% endif %}
-    <div class="hero-banner__background-overlay"></div>
-  </div>
+<div id="{{ section_id }}" class="hero-banner hero-banner-section hero-banner-section--{{ background_layout }}">
+  {% if background_layout == 'split' %}
+    {% render 'component-hero-background',
+     type: primary_background_type,
+     image: primary_image_background,
+     video_hosted: primary_video_background_hosted,
+     video_url: primary_video_background_url,
+     slot: 'primary'
+    %}
+
+    {% render 'component-hero-background',
+     type: secondary_background_type,
+     image: secondary_image_background,
+     video_hosted: secondary_video_background_hosted,
+     video_url: secondary_video_background_url,
+     slot: 'secondary'
+    %}
+
+  {% else %}
+
+    {% render 'component-hero-background',
+     type: primary_background_type,
+     image: primary_image_background,
+     video_hosted: primary_video_background_hosted,
+     video_url: primary_video_background_url,
+     slot: 'primary'
+    %}
+    
+  {% endif %}
+  
+  <div class="hero-banner__background-overlay"></div>
+
 
   <div class="hero-banner__content hero-banner__content--h-{{ content_alignment }} hero-banner__content--v-{{ vertical_alignment }}">
     {% if stars_text != blank %}

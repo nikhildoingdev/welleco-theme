@@ -6,7 +6,7 @@
   /* Use variable, provide fallback */
   padding: 60px 20px;
   min-height: 600px;
-  background-color: #000;
+  /* background-color: #000; */
   overflow: hidden;
 }
 
@@ -17,6 +17,22 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+.hero-banner-section--split .hero-banner__background--primary {
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  color: #fff;
+}
+
+.hero-banner-section--split .hero-banner__background--secondary {
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  color: #fff;
 }
 
 .hero-banner-section .hero-banner__background-overlay {

@@ -1,0 +1,31 @@
+<div class="hero-banner__background hero-banner__background--{{ slot }}">
+  {% if type == 'video' %}
+    {% if video_hosted != blank %}
+      {{ video_hosted | video_tag: autoplay: true, loop: true, muted: true, playsinline: true }}
+
+    {% elsif video_url != blank %}
+      {% if video_url contains 'youtube.com' or video_url contains 'youtu.be' %}
+        {% assign video_id = video_url | split: 'v=' | last | split: '&' | first | split: '/' | last %}
+        <iframe
+          src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1&mute=1&loop=1&playlist={{ video_id }}&controls=0&showinfo=0&autohide=1&modestbranding=1&playsinline=1"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+      {% elsif video_url contains 'vimeo.com' %}
+        {% assign video_id = video_url | split: '/' | last %}
+        <iframe
+          src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&loop=1&muted=1&controls=0&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen></iframe>
+      {% endif %}
+
+    {% endif %}
+  {% else %}
+    {% if image != blank %}
+      {{ image | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000', class: '' }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  {% endif %}
+</div>
