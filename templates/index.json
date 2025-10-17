@@ -12,10 +12,15 @@
     "hero_1": {
       "type": "hero",
       "settings": {
-        "background_type": "image",
-        "video_background_url": "",
+        "background_layout": "split",
+        "primary_background_type": "image",
+        "primary_image_background": "shopify://shop_images/250114-Welleco-day2-SH_018-40276-_1_jpg.png",
+        "primary_video_background_url": "",
+        "secondary_background_type": "image",
+        "secondary_image_background": "shopify://shop_images/39df9daeae094d7abed0a46c44565f9a.HD-1080p-7.2Mbps-43886180.mp4.png",
+        "secondary_video_background_url": "",
         "overlay_color": "#d9d9d9",
-        "overlay_opacity": 30,
+        "overlay_opacity": 0,
         "content_alignment": "center",
         "vertical_alignment": "center",
         "text_color": "#000000",
