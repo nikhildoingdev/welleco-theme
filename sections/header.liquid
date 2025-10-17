@@ -2,7 +2,6 @@
   #shopify-section-{{ section.id }} {
     position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %};
     top: 0;
-    background: #fff;
     width: 100%;
     {% if section.settings.show_line_separator %}
       border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
@@ -305,7 +304,7 @@
     }
   }
 
-  #main-header nav ul,
+  /* #main-header nav ul,
   #main-header nav ul li,
   #main-header nav ul li a {
     color: {{ section.settings.menu_text_color }};
@@ -313,7 +312,7 @@
   [data-cart-count] {
     background: {{ section.settings.cart_count_color }};
     color: #fff;
-  }
+  } */
 {% endstyle %}
 
 {% capture header_search %}

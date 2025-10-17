@@ -38,7 +38,7 @@
     line-height: 1.5;
   }
 {% endstylesheet %}
-<ul>
+<ul style="display: flex; gap: 2rem;">
   {% for link in menu.links %}
     <li x-data="{ menuOpen: false }" @click.outside="menuOpen = false">
       {% if link.links != blank %}
@@ -86,6 +86,14 @@
                 {%- endif -%}
               </li>
             {%- endfor -%}
+
+            {% if link.title == 'Shop' %}
+              <div style="grid-column: span 3; display: flex; gap: 1rem;">
+                {% for product in collections['featured'].products %}
+                  {% render 'component-product-card', card_product: product, media_aspect_ratio: 'adapt' %}
+                {% endfor %}
+                </div>
+            {% endif %}
           </ul>
         </div>
       {% else %}

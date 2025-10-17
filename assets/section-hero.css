@@ -5,9 +5,10 @@
   color: var(--hero-text-color, #FFFFFF);
   /* Use variable, provide fallback */
   padding: 60px 20px;
-  min-height: 600px;
+  min-height: 949px;
   /* background-color: #000; */
   overflow: hidden;
+  margin-top: calc(-1 * var(--header-height));
 }
 
 .hero-banner-section .hero-banner__background {
@@ -21,16 +22,11 @@
 
 .hero-banner-section--split .hero-banner__background--primary {
   width: 50%;
-  height: 100%;
-  top: 0;
-  left: 0;
   color: #fff;
 }
 
 .hero-banner-section--split .hero-banner__background--secondary {
   width: 50%;
-  height: 100%;
-  top: 0;
   left: 50%;
   color: #fff;
 }
