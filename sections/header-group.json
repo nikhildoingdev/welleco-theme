@@ -11,6 +11,36 @@
   "type": "header",
   "name": "t:general.header",
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_9Fphmx": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "Free shipping on orders over $50",
+            "announcement_url": ""
+          }
+        },
+        "announcement_T8Qn6F": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "Announcement 2",
+            "announcement_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_9Fphmx",
+        "announcement_T8Qn6F"
+      ],
+      "name": "Announcement Bar",
+      "settings": {
+        "bg_color": "#254430",
+        "text_color": "#ffffff",
+        "enable_autorotate": true,
+        "slide_duration": 5
+      }
+    },
     "header": {
       "type": "header",
       "settings": {
@@ -32,11 +62,7 @@
         "menu_text_color": "#000000",
         "cart_count_color": "#2e2e2e"
       }
-    },
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "name": "Announcement Bar"
-    },
+    }
   },
   "order": [
     "announcement-bar",
