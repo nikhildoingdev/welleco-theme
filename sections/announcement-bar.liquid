@@ -1,0 +1,152 @@
+<div class="announcement__bar">
+  {% for block in section.blocks %}
+    <div class="announcement">
+      <a href="{{ block.settings.announcement_url }}">{{ block.settings.announcement_text }}</a>
+    </div>
+  {% endfor %}
+</div>
+
+{% style %}
+  .announcement__bar {
+      height: 45px;
+      background: {{ section.settings.bg_color }};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .announcement{
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .5s ease-in-out;
+    }
+
+    .announcement.is-active{
+      opacity: 1;
+      visibility: visible;
+    }
+
+    {% unless section.settings.enable_autorotate and section.blocks.size > 1 %}
+
+    .announcement:first-child{
+      opacity: 1;
+      visibility: visible;
+    }
+
+    {% endunless %}
+
+    .announcement > a {
+      color: {{ section.settings.text_color }};
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 100%;
+      letter-spacing: 1.5px;
+    }
+
+    @media (max-width: 56.25rem) {
+      .announcement > a{
+        font-size: 0.875rem;
+      }
+    }
+
+    @media (max-width: 37.5rem){
+      .announcement > a{
+        font-size: 0.75rem;
+      }
+    }
+{% endstyle %}
+
+{% if section.settings.enable_autorotate and section.blocks.size > 1 %}
+  <script>
+    (function(){
+      const container = document.querySelector('.announcement__bar');
+      const announcements = container.querySelectorAll('.announcement');
+
+      if (announcements.length <= 1) {
+        return;
+      }
+
+      let currentIndex = 0;
+      announcements[currentIndex].classList.add('is-active');
+
+      setInterval(() => {
+        announcements[currentIndex].classList.remove('is-active');
+        currentIndex = (currentIndex + 1) % announcements.length;
+        announcements[currentIndex].classList.add('is-active');
+      }, {{ section.settings.slide_duration | times: 1000 }});
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#254430"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Slideshow Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autorotate",
+      "label": "Auto-rotate announcements",
+      "default": true,
+      "info": "Requires at least two announcement blocks to take effect."
+    },
+    {
+      "type": "range",
+      "id": "slide_duration",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Time between announcements",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "announcement_text",
+          "label": "Announcement Text",
+          "default": "Free shipping on orders over $50"
+        },
+        {
+          "type": "url",
+          "id": "announcement_url",
+          "label": "Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "category": "Header"
+    }
+  ]
+}
+{% endschema %}

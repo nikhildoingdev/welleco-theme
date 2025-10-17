@@ -32,7 +32,36 @@
         "menu_text_color": "#000000",
         "cart_count_color": "#2e2e2e"
       }
-    }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_CkpLFj": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "Free shipping on orders over $50",
+            "announcement_url": ""
+          }
+        },
+        "announcement_9T3idf": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "I can add anything i want for any announcement i want",
+            "announcement_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_CkpLFj",
+        "announcement_9T3idf"
+      ],
+      "settings": {
+        "bg_color": "#254430",
+        "text_color": "#ffffff",
+        "enable_autorotate": true,
+        "slide_duration": 5
+      }
+    },
   },
   "order": [
     "header"
