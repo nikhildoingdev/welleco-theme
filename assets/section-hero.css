@@ -5,7 +5,7 @@
   color: var(--hero-text-color, #FFFFFF);
   /* Use variable, provide fallback */
   padding: 60px 20px;
-  min-height: 949px;
+  min-height: 960px;
   /* background-color: #000; */
   overflow: hidden;
   margin-top: calc(-1 * var(--header-height));
