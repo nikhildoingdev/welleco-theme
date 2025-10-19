@@ -1,6 +1,6 @@
 {% style %}
   #shopify-section-{{ section.id }} {
-    position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %};
+    /* position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %}; */
     top: 0;
     width: 100%;
     {% if section.settings.show_line_separator %}
@@ -11,12 +11,12 @@
     margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 
-  {% if section.settings.sticky_header_type == 'on-scroll-up' %}
+  /* {% if section.settings.sticky_header_type == 'on-scroll-up' %}
     #shopify-section-{{ section.id }}
     .header-sticky {
       top: calc(-1 * var(--header-height));
     }
-  {% endif %}
+  {% endif %} */
 
   #main-header {
     display: grid;
@@ -292,10 +292,6 @@
       gap: 4.8rem;
     }
 
-    html{
-      --header-height: 100px;
-    }
-
     .header-logo {
       --logo-height: {{ settings.logo_height | minus: 10 | append: 'px' }};
     }
@@ -513,7 +509,7 @@
   {%- endif -%}
 </div>
 
-<script>
+{% comment %} <script>
   const header = document.getElementById('shopify-section-{{ section.id }}');
   let lastScrollTop = 0;
 
@@ -546,7 +542,7 @@
 
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   });
-</script>
+</script> {% endcomment %}
 {% if section.settings.enable_country_selector or section.settings.enable_language_selector %}
   <script src="{{ 'component-localization-form.js' | asset_url }}" type="module"></script>
 {% endif %}

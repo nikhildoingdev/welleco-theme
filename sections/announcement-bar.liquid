@@ -7,21 +7,26 @@
 </div>
 
 {% style %}
+  #shopify-section-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
   .announcement__bar {
       background: {{ section.settings.bg_color }};
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
+      display: grid;
+      place-items: center;
     }
 
 
     .announcement{
-      position: absolute;
+      grid-column:1;
+      grid-row: 1;
       opacity: 0;
       visibility: hidden;
       transition: opacity .5s ease-in-out;
+      padding: 1.2rem;
     }
 
     .announcement.is-active{
@@ -42,17 +47,13 @@
       color: {{ section.settings.text_color }};
       text-decoration: none;
       font-size: 1.6rem;
-      font-weight: 500;
+      font-weight: 300;
       text-transform: uppercase;
       line-height: 100%;
       letter-spacing: 1.5px;
     }
 
     @media (max-width: 1440px) {
-      .announcement__bar{
-        height: 42px;
-      }
-
       .announcement > a{
         font-size: 1.4rem;
       }
