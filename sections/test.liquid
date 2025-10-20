@@ -1,0 +1,31 @@
+<div class="test-section">
+  {% for product in collections[section.settings.collection].products limit: 3 %}
+    {% render 'component-product-card', card_product: product, media_aspect_ratio: 'square' %}
+  {% endfor %}
+</div>
+
+{% stylesheet %}
+  .test-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Test Section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Test Section"
+    }
+  ]
+}
+{% endschema %}

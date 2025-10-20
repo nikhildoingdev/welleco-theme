@@ -15,6 +15,7 @@
     top: 100%;
     width: 100%;
     margin-top: 1px;
+    background: #fff;
   }
   #main-header .nav-megamenu .page-width {
     display: grid;
@@ -37,18 +38,25 @@
     font-size: 15px;
     line-height: 1.5;
   }
+
+  .product-grid {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 5rem;
+  }
 {% endstylesheet %}
 <ul>
   {% for link in menu.links %}
-    <li x-data="{ menuOpen: false }" @click.outside="menuOpen = false">
+    <li x-data="{ menuOpen: false }">
       {% if link.links != blank %}
         <button
-          @click="menuOpen = !menuOpen"
+          @mouseover="menuOpen = true"
           :class="{ 'menu-open': menuOpen }"
           class="menu-toggle"
         >
           {{- link.title | escape -}}
-          {{- 'icon-caret.svg' | inline_asset_content -}}
         </button>
         <div
           x-show="menuOpen"
@@ -56,7 +64,7 @@
           x-cloak
           class="nav-megamenu color-{{ menu_color_scheme }} gradient"
         >
-          <ul class="page-width" role="list">
+          <ul class="page-width" role="list"  @mouseleave="menuOpen = false">
             {%- for childlink in link.links -%}
               <li>
                 <a
@@ -88,10 +96,10 @@
             {%- endfor -%}
 
             {% if link.title == 'Shop' %}
-              <div style="grid-column: span 3; display: flex; gap: 1rem;">
+              <div class="product-grid">
                 {% for product in collections['featured'].products %}
-                  {% render 'component-product-card', card_product: product, media_aspect_ratio: 'adapt' %}
-                {% endfor %}
+                  {% render 'component-product-card', card_product: product, media_aspect_ratio: 'adapt', quick_add: 'standard' %}
+                {% endfor d%}
                 </div>
             {% endif %}
           </ul>

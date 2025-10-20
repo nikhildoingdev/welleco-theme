@@ -14,6 +14,8 @@
   {% render 'component-product-price', product: product, use_variant: true, show_badges: true %}
 {% enddoc %}
 
+{{ 'component-product-price.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   if use_variant
     assign target = product.selected_or_first_available_variant
@@ -28,7 +30,7 @@
   assign price_min = product.price_min
   assign price_max = product.price_max
   assign available = target.available | default: false
-  assign money_price = price | money
+  assign money_price = price | money_without_trailing_zeros
   assign money_price_min = price_min | money
   assign money_price_max = price_max | money
   if settings.currency_code_enabled

@@ -1,3 +1,50 @@
+.card-description {
+  font-size: 1.4rem;
+  color: #000;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  text-transform: capitalize;
+}
+
+.product-card{
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.product-card:hover .card-buttons {
+  transform: translateY(-100%);
+}
+
+.card-buttons {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  top: 100%;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.card-buttons button {
+  width: 100%;
+  border: 1px solid #181818;
+  background: #181818;
+  padding: 1.6rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15rem;
+  color: #fff !important;
+  position: relative;
+}
+
 .product__media-image {
   width: 100%;
   height: 100%;
@@ -16,11 +63,12 @@
 .card-heading, .card__heading {
   padding: 1rem 0 0 0;
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1.5;
   min-height: auto;
+  text-transform: capitalize;
 }
 
 .product__subscription {
@@ -28,7 +76,7 @@
 }
 
 h2.card-heading.product-grid-heading, .card__heading {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .card-heading a, .card__heading a {

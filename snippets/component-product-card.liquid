@@ -24,6 +24,8 @@
   %}
 {% endcomment %}
 
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+
 <product-card
   class="product-card"
   data-product-id="{{ card_product.id }}"
@@ -72,6 +74,9 @@
         <h2 class="card-heading product-grid-heading">
           <a href="{{ card_product.url }}">{{ card_product.title }}</a>
         </h2>
+        <p class="card-description">
+          {{ card_product.description | strip_html}}
+        </p>
         {% if show_vendor %}
           <span class="card-vendor">{{ card_product.vendor }}</span>
         {% endif %}
@@ -186,6 +191,10 @@
                     disabled
                   {% endif %}
                 >
+                <div class="card-buttons">
+                <button>
+                  SUBSCRIBE & SAVE 20%
+                </button>
                 <button
                   id="{{ product_form_id }}-submit"
                   type="submit"
@@ -195,9 +204,6 @@
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   aria-live="polite"
                   data-sold-out-message="true"
-                  {% if button_text_color %}
-                    style="color: {{ button_text_color }};"
-                  {% endif %}
                   {% if card_product.selected_or_first_available_variant.available == false %}
                     disabled
                   {% endif %}
@@ -216,6 +222,7 @@
                     {{ 'icon-spinner.svg' | inline_asset_content }}
                   </div>
                 </button>
+                </div>
               {%- endform -%}
             </ajax-cart-product-form>
           {%- endif -%}
