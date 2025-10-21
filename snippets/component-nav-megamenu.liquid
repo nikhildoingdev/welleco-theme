@@ -40,12 +40,19 @@
     text-transform: capitalize;
   }
 
-  .product-grid {
+  .featured-products {
     grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: 5rem;
+  }
+
+  .product-grid {
+    grid-column: 2;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 5rem;
-    padding-left: 10rem;
   }
 {% endstylesheet %}
 <ul>
@@ -96,11 +103,18 @@
             {%- endfor -%}
 
             {% if link.title == 'Shop' %}
-              <div class="product-grid">
-                {% for product in collections['featured'].products %}
-                  {% render 'component-product-card', card_product: product, media_aspect_ratio: 'adapt', quick_add: 'standard' %}
-                {% endfor d%}
+              <div class="featured-products">
+                <h2>Featured</h2>
+                <div class="product-grid">
+                  {% for product in collections.featured.products %}
+                    {% render 'component-product-card',
+                      card_product: product,
+                      media_aspect_ratio: 'adapt',
+                      quick_add: 'standard'
+                    %}
+                  {% endfor %}
                 </div>
+              </div>
             {% endif %}
           </ul>
         </div>
