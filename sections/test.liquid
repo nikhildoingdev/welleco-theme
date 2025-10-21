@@ -1,6 +1,6 @@
 <div class="test-section">
   {% for product in collections[section.settings.collection].products limit: 3 %}
-    {% render 'component-product-card', card_product: product, media_aspect_ratio: 'square' %}
+    {% render 'component-product-card', card_product: product, media_aspect_ratio: 'square', quick_add: 'standard' %}
   {% endfor %}
 </div>
 
@@ -9,6 +9,18 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .test-section {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .test-section {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 {% endstylesheet %}
 

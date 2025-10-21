@@ -2,7 +2,7 @@
   font-size: 1.8rem;
   letter-spacing: 0.8px;
   line-height: 1.5;
-  color: rgb(var(--color-foreground));
+  color: inherit;
 }
 
 .price > * {

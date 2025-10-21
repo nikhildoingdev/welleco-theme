@@ -9,14 +9,29 @@
     z-index: 9;
     transition: top 150ms ease-out;
     margin-bottom: {{ section.settings.margin_bottom }}px;
+    background: transparent;
+
+    position: sticky;
+    top: 40px;
+    z-index: 20;
   }
 
-  /* {% if section.settings.sticky_header_type == 'on-scroll-up' %}
+  #shopify-section-{{ section.id }}.scrolled {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }}.scrolled nav ul {
+    color: #181818;
+  }
+
+
+
+  {% if section.settings.sticky_header_type == 'on-scroll-up' %}
     #shopify-section-{{ section.id }}
     .header-sticky {
       top: calc(-1 * var(--header-height));
     }
-  {% endif %} */
+  {% endif %}
 
   #main-header {
     display: grid;
@@ -28,8 +43,9 @@
     align-items: center;
     gap: 0 3rem;
     margin-inline: auto;
-    padding: {{ section.settings.padding_vertical }}px {{ section.settings.padding_horizontal }}px;
+    padding: 0 {{ section.settings.padding_horizontal }}px;
     transition: background-color 0.3s ease;
+    height: 86px;
   }
   #main-header:hover {
     background-color: #fff;
@@ -37,7 +53,6 @@
   #main-header .header-shop_link {
     text-decoration: none;
     word-break: break-word;
-    color: rgb(var(--color-foreground));
   }
   #main-header .header-shop_name {
     font-size: 24px;
@@ -63,6 +78,48 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 6.4rem;
+    height: 100%;
+  }
+
+  nav{
+    height: 100%;
+  }
+
+  nav ul{
+    height: 100%;
+  }
+
+  .nav-list-item{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .menu-link{
+    position: relative;
+  }
+
+  .menu-link::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-list-item:hover .menu-link::after{
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  #main-header:hover nav ul {
+    color: #181818;
   }
   .header-menu-position-left ul {
     justify-content: flex-start;
@@ -100,6 +157,9 @@
     filter: brightness(0) invert(1);
     transition: filter .3s ease;
   }
+  #shopify-section-{{ section.id }}.scrolled .header-logo {
+    filter: brightness(0);
+  }
   #main-header:hover .header-logo {
     filter: brightness(0);
   }
@@ -120,9 +180,6 @@
     text-transform: uppercase;
     font-weight: 500;
     transition: all .3s ease;
-  }
-  #main-header:hover nav * {
-    color: #000;
   }
   #header-cart-bubble {
       position: relative;
@@ -509,40 +566,22 @@
   {%- endif -%}
 </div>
 
-{% comment %} <script>
+<script>
   const header = document.getElementById('shopify-section-{{ section.id }}');
-  let lastScrollTop = 0;
-
-  function updateHeaderHeight() {
-    const headerHeight = header.offsetHeight;
-    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
-  }
-
-  window.addEventListener('resize', updateHeaderHeight);
-  window.addEventListener('load', updateHeaderHeight);
 
   window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (currentScroll > 0) {
-      header.classList.add('scrolled-header');
+    if (window.scrollY > 0) {
+      console.log(window.scrollY);
+      console.log('i am here');
+      header.classList.add('scrolled');
+      console.log(header);
     } else {
-      header.classList.remove('scrolled-header');
+      header.classList.remove('scrolled');
+      console.log(header);
     }
-
-    if (currentScroll > lastScrollTop) {
-      header.classList.add('header-sticky');
-    } else if (currentScroll < lastScrollTop) {
-      header.classList.remove('header-sticky');
-    }
-
-    if (currentScroll === 0) {
-      header.classList.remove('header-sticky');
-    }
-
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   });
-</script> {% endcomment %}
+</script>
+
 {% if section.settings.enable_country_selector or section.settings.enable_language_selector %}
   <script src="{{ 'component-localization-form.js' | asset_url }}" type="module"></script>
 {% endif %}
