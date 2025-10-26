@@ -1,37 +1,55 @@
+{% comment %} Styles {% endcomment %}
 {% style %}
   #shopify-section-{{ section.id }} {
-    /* position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %}; */
-    top: 0;
+    /* Variables */
+    --header-bg: transparent;
+    --header-text-color: #fff;
+    --header-btn-bg: transparent;
+    --header-btn-text-color: #fff;
+    --header-btn-border-color: #fff;
+
+
+    position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %};
+    top: 40px;
     width: 100%;
     {% if section.settings.show_line_separator %}
       border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
     {% endif %}
-    z-index: 9;
     transition: top 150ms ease-out;
     margin-bottom: {{ section.settings.margin_bottom }}px;
-    background: transparent;
-
-    position: sticky;
-    top: 40px;
     z-index: 20;
   }
 
-  #shopify-section-{{ section.id }}.scrolled {
-    background: #fff;
+  /* Header States */
+  /* Scrolled */
+  .header-wrapper {
+     &.scrolled, &:hover {
+      --header-bg: #fff;
+      --header-text-color: #181818;
+
+      .header__logo {
+        filter: brightness(0);
+      }
+     }
   }
 
-  #shopify-section-{{ section.id }}.scrolled nav ul {
-    color: #181818;
+  .header__quiz-button {
+    background: var(--header-bg);
+    border: 1px solid var(--header-text-color);
+    color: var(--header-text-color);
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    padding: 1rem 1.6rem;
+    letter-spacing: 0.15rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
-
-
-  {% if section.settings.sticky_header_type == 'on-scroll-up' %}
-    #shopify-section-{{ section.id }}
-    .header-sticky {
-      top: calc(-1 * var(--header-height));
-    }
-  {% endif %}
+  .header__quiz-button:hover {
+    background: var(--header-text-color);
+    color: var(--header-bg);
+  }
 
   #main-header {
     display: grid;
@@ -46,6 +64,7 @@
     padding: 0 {{ section.settings.padding_horizontal }}px;
     transition: background-color 0.3s ease;
     height: 86px;
+    background: var(--header-bg);
   }
   #main-header:hover {
     background-color: #fff;
@@ -79,17 +98,16 @@
     align-items: center;
     gap: 6.4rem;
     height: 100%;
+    color: var(--header-text-color)
   }
-
   nav{
     height: 100%;
   }
-
   nav ul{
     height: 100%;
   }
 
-  .nav-list-item{
+  .header__menu-item {
     height: 100%;
     display: flex;
     align-items: center;
@@ -114,13 +132,10 @@
     transition: transform 0.3s ease;
   }
 
-  .nav-list-item:hover .menu-link::after{
+  .header__menu-item:hover .menu-link::after{
     transform: translateX(-50%) scaleX(1);
   }
 
-  #main-header:hover nav ul {
-    color: #181818;
-  }
   .header-menu-position-left ul {
     justify-content: flex-start;
   }
@@ -150,16 +165,16 @@
   #main-header .menu-toggle.menu-open svg {
     transform: scaleY(-1);
   }
-  .header-logo {
+
+  /* Header Logo */
+  .header__logo {
     --logo-height: {{ settings.logo_height | append: 'px' }};
     width: auto;
     height: var(--logo-height);
     filter: brightness(0) invert(1);
     transition: filter .3s ease;
   }
-  #shopify-section-{{ section.id }}.scrolled .header-logo {
-    filter: brightness(0);
-  }
+
   #main-header:hover .header-logo {
     filter: brightness(0);
   }
@@ -181,54 +196,43 @@
     font-weight: 500;
     transition: all .3s ease;
   }
-  #header-cart-bubble {
-      position: relative;
-      margin-right: 6px;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-  }
-  #header-cart-bubble svg, .header-actions_account svg {
-    width: 25px;
-  }
-  [data-cart-count] {
-    position: absolute;
-    display: grid;
-    place-items: center;
-    top: -2px;
-    right: -6px;
-    width: 16px;
-    height: 16px;
-    color: rgb(var(--color-background));
-    background: rgb(var(--color-foreground));
-    font-size: 10px;
-    border-radius: 10rem;
+
+  .header__cart-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all .3s ease;
+    gap: .6rem;
+    cursor: pointer;
   }
-  #main-header:hover [data-cart-count] {
-    background: #000;
-    color: #fff;
+
+  [data-cart-count] {
+    font-size: 1.6rem;
+    font-weight: 5  00;
+    color: var(--header-text-color);
   }
-  .header-actions,
-  .header-actions > * {
+
+  .header__account-button svg path,
+  .header__cart-button svg path {
+    stroke: var(--header-text-color);
+  }
+
+  .header__actions,
+  .header__actions > * {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
-    color: inherit;
+    align-items: center;
+    gap: 3.2rem;
     {% if section.settings.logo_position == 'top-left' or section.settings.logo_position == 'top-center' %}
       grid-area: 1 / 3;
     {% endif %}
     transition: color .3s ease;
   }
-  #main-header:hover .header-actions {
-    color: #000;
-  }
-  #header-actions_search {
+
+  #header__search-button {
     cursor: pointer;
+  }
+  #header__search-button svg path {
+    fill: var(--header-text-color);
   }
   #header-search {
     position: absolute;
@@ -338,7 +342,6 @@
     cursor: pointer;
     padding: 0;
   }
-
   #header-search svg {
     width: 20px;
     color: rgb(var(--color-foreground));
@@ -373,8 +376,9 @@
 
   @media (max-width: 1090px) {
     #main-header > nav,
-    .header-actions_account,
-    .header-actions_localization {
+    .header__localization,
+    .header__quiz,
+    #header__search-button {
       display: none;
     }
     #main-header {
@@ -385,9 +389,6 @@
         auto 1fr auto
       {% endif %};
       padding: {{ section.settings.padding_top | divided_by: 1.5 }}px 20px {{ section.settings.padding_bottom | divided_by: 1.5 }}px;
-    }
-    #header-search {
-      gap: .7rem;
     }
     #header-search predictive-search {
       position: static;
@@ -401,29 +402,55 @@
       display: grid;
     }
     .header-menu-position-center .header-logo-container,
-    .header-menu-position-center .header-actions
+    .header-menu-position-center .header__actions
     {
       min-width: 160px;
     }
   }
-  @media (max-width: 440px) {
-    .header-logo {
-      --logo-height: 34px;
+  @media (max-width: 1024px) {
+    .header-wrapper {
+    --header-bg: #fff;
+      --header-text-color: #181818;
+    }
+    .header__logo {
+      filter: brightness(0);
+      --logo-height: 42px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header__logo {
+      --logo-height: 36px;
+    }
+
+    .header__actions {
+      gap: 1.6rem;
     }
   }
 {% endstyle %}
 
 {% capture header_search %}
-  <div id="header-actions_search" @click="searchOpen = !searchOpen; $nextTick(() => { if (searchOpen) $refs.searchInput.focus() })">
+  <div id="header__search-button" @click="searchOpen = !searchOpen; $nextTick(() => { if (searchOpen) $refs.searchInput.focus() })">
     {{ 'icon-search.svg' | inline_asset_content }}
   </div>
 {% endcapture %}
 
+{% comment %} HTML {% endcomment %}
 <div
-  class="color-{{ section.settings.color_scheme }}"
+  class="color-{{ section.settings.color_scheme }} header-wrapper"
+  x-data="
+    {
+      {% if settings.cart_type == 'drawer' %}
+        cartOpen: false,
+      {% endif %}
+      scrolled: false
+    }
+  "
   {% if settings.cart_type == 'drawer' %}
-    x-data="{ cartOpen: false }" @cart-open.window="cartOpen = true"
+    @cart-open.window="cartOpen = true"
   {% endif %}
+  @scroll.window="scrolled = window.scrollY > 0"
+  :class="{ 'scrolled': scrolled }"
 >
   <header
     {% if section.settings.menu_position == 'center' %}
@@ -448,7 +475,7 @@
     {% if request.page_type == 'index' %}<h1 class="header-logo-container" style="margin: 0">{% endif %}
     <a href="{{ routes.root_url }}" class="header-shop_link" style="display: flex">
       {% if settings.logo != blank %}
-        {{ settings.logo | image_url: width: 900 | image_tag: class: 'header-logo' }}
+        {{ settings.logo | image_url: width: 900 | image_tag: class: 'header__logo' }}
       {% else %}
         <span class="header-shop_name">{{ shop.name }}</span>
       {% endif %}
@@ -472,9 +499,16 @@
       </nav>
     {% endif %}
 
-    <div class="header-actions">
+    {% comment %} Header actions {% endcomment %}
+    <div class="header__actions">
+      {% comment %} Search button {% endcomment %}
+      {% unless section.settings.logo_position == 'top-center' or section.settings.menu == blank %}
+        {{ header_search }}
+      {% endunless %}
+
+      {% comment %} Localization form {% endcomment %}
       {% if section.settings.enable_country_selector or section.settings.enable_language_selector %}
-        <div class="header-actions_localization">
+        <div class="header__localization">
           {%- render 'component-localization-form',
             enable_country_selector: section.settings.enable_country_selector,
             enable_language_selector: section.settings.enable_language_selector,
@@ -483,13 +517,15 @@
         </div>
       {% endif %}
 
-      {% unless section.settings.logo_position == 'top-center' or section.settings.menu == blank %}
-        {{ header_search }}
-      {% endunless %}
+      {% comment %} Quiz button {% endcomment %}
+      <div class="header__quiz">
+        <button class="header__quiz-button">Take our quiz</button>
+      </div>
 
+      {% comment %} Customer account {% endcomment %}
       {% if shop.customer_accounts_enabled and section.settings.enable_customer_avatar %}
         <a
-          class="header-actions_account"
+          class="header__account-button"
           href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
           rel="nofollow"
         >
@@ -497,6 +533,7 @@
         </a>
       {% endif %}
 
+      {% comment %} Apps {% endcomment %}
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when '@app' -%}
@@ -504,19 +541,22 @@
         {%- endcase -%}
       {%- endfor -%}
 
+      {% comment %} Cart {% endcomment %}
       <a
-        id="header-cart-bubble"
         {%- if settings.cart_type == 'drawer' -%}
           @click.prevent="cartOpen = !cartOpen"
         {%- else -%}
           href="{{ routes.cart_url }}"
         {%- endif -%}
       >
-        {{- 'icon-cart.svg' | inline_asset_content -}}
-        <div data-cart-count data-ajax-cart-bind="item_count">{{ cart.item_count }}</div>
+        <div class="header__cart-button">
+          {{- 'icon-cart.svg' | inline_asset_content -}}
+          <p data-cart-count data-ajax-cart-bind="item_count">{{ cart.item_count }}</p>
+        </div>
       </a>
     </div>
 
+    {% comment %} Search form {% endcomment %}
     <div id="header-search" :class="{ 'active': searchOpen }">
       {%- if settings.predictive_search_enabled -%}
         {%- render 'component-predictive-search', context: 'header' -%}
@@ -554,6 +594,7 @@
     </div>
   </header>
 
+  {% comment %} Cart notification {% endcomment %}
   {%- if settings.cart_type == 'notification' -%}
     {%- render 'component-cart-notification',
       color_scheme: section.settings.color_scheme,
@@ -566,25 +607,13 @@
   {%- endif -%}
 </div>
 
-<script>
-  const header = document.getElementById('shopify-section-{{ section.id }}');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 0) {
-      console.log(window.scrollY);
-      console.log('i am here');
-      header.classList.add('scrolled');
-      console.log(header);
-    } else {
-      header.classList.remove('scrolled');
-      console.log(header);
-    }
-  });
-</script>
+{% comment %} JavaScript {% endcomment %}
 
 {% if section.settings.enable_country_selector or section.settings.enable_language_selector %}
   <script src="{{ 'component-localization-form.js' | asset_url }}" type="module"></script>
 {% endif %}
+
+{% comment %} Schema {% endcomment %}
 
 {% schema %}
 {

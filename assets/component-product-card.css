@@ -16,7 +16,6 @@
 .product-card{
   position: relative;
   overflow: hidden;
-  /* border: 1px solid #000; */
   height: calc(100% - 114px);
 }
 
@@ -26,9 +25,13 @@
   gap: 1rem;
   transition: transform 0.4s ease;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6.4px);
   -webkit-backdrop-filter: blur(6.4px);
+}
+
+.card-information-child {
+  padding: 1rem
 }
 
 .product-card:hover .card-information {
@@ -204,8 +207,6 @@ h2.card-heading.product-grid-heading, .card__heading {
   flex-direction: column;
   justify-content: space-between;
 }
-
-
 
 .card--standard .price--on-sale .price__sale {
   display: flex;

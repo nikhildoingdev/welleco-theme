@@ -45,19 +45,19 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding-left: 5rem;
+    margin: 0 12rem;
   }
 
   .product-grid {
     grid-column: 2;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5rem;
+    gap: 2rem;
   }
 {% endstylesheet %}
-<ul>
+<ul class="header__menu-list">
   {% for link in menu.links %}
-    <li x-data="{ menuOpen: false }" @mouseover="menuOpen = true" @mouseleave="menuOpen = false" class="nav-list-item">
+    <li x-data="{ menuOpen: false }" @mouseover="menuOpen = true" @mouseleave="menuOpen = false" class="header__menu-item">
       {% if link.links != blank %}
         <button
           :class="{ 'menu-open': menuOpen }"
