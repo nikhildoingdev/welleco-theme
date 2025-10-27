@@ -9,6 +9,9 @@
   {% render 'component-nav-megamenu', menu: section.settings.menu, menu_color_scheme: section.settings.menu_color_scheme %}
 {% enddoc %}
 {% stylesheet %}
+  #main-header *:focus {
+    outline: none;
+  }
   #main-header .nav-megamenu {
     position: absolute;
     left: 0;
@@ -18,24 +21,33 @@
   }
   #main-header .nav-megamenu .page-width {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-content: space-between;
     margin-inline: auto;
+    row-gap: 0;
     align-items: flex-start;
     padding: 3.2rem 4rem;
   }
   #main-header .nav-megamenu .nav-megamenu_child {
     position: static;
-    margin-top: 10px;
-    display: block;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    align-items: flex-start;
   }
-  #main-header .nav-megamenu_heading {
-    font-weight: 600;
+  #main-header .nav-megamenu_heading,
+  .featured-products__heading {
+    font-weight: 500;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    font-size: 1.6rem;
   }
   #main-header .nav-megamenu_child a {
     display: block;
-    padding: 6px 0;
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 100%;
     text-transform: capitalize;
   }
 
@@ -44,14 +56,13 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin: 0 12rem;
   }
 
   .product-grid {
-    grid-column: 2;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 250px));
+    justify-content: start;
+    gap: 2.4rem;
   }
 
   .header__megamenu-custom {
@@ -69,7 +80,7 @@
     gap: 1.6rem;
   }
 
-  .header__megamenu-item:hover .underline-effect::after{
+  .header__megamenu-item:hover .underline-effect::after {
     transform: translateX(-50%) scaleX(1);
   }
 
@@ -92,6 +103,30 @@
     letter-spacing: 0.15rem;
     color: var(--color-foreground);
     width: fit-content;
+  }
+
+  .megamenu__button {
+    margin-top: -114px;
+    grid-column: span 6;
+    place-self: center;
+    width: fit-content;
+    padding: 1.5rem 3rem;
+    background: var(--header-bg);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid var(--header-text-color);
+    transition: all 0.3s ease;
+  }
+
+  .megamenu__button span {
+    color: var(--header-text-color);
+    transition: all 0.3s ease;
+  }
+  .megamenu__button:hover {
+    background: var(--header-text-color);
+  }
+  .megamenu__button:hover span {
+    color: var(--header-bg);
   }
 {% endstylesheet %}
 
@@ -162,7 +197,7 @@
 
             {% if link.title == 'Shop' %}
               <div class="featured-products">
-                <h2>Featured</h2>
+                <h2 class="featured-products__heading">Featured</h2>
                 <div class="product-grid">
                   {% for product in collections.featured.products %}
                     {% render 'component-product-card',
@@ -173,6 +208,9 @@
                   {% endfor %}
                 </div>
               </div>
+              <a href="{{ section.settings.button_link }}" class="megamenu__button"
+                ><span>{{ section.settings.button_text }}</span></a
+              >
             {% endif %}
 
             {% comment %} Render custom megamenu content if it exists {% endcomment %}
@@ -190,12 +228,15 @@
                       {% if block_parent_handle == link_title %}
                         <a href="{{ block.settings.item_link }}" class="header__megamenu-item">
                           {% if block.settings.item_image %}
-                            <div class="header__megamenu-item-image-wrapper" style="width: {{ block.settings.item_image_width }}px; height: {{ block.settings.item_image_width }}px;">   
-                            {{
-                              block.settings.item_image
-                              | image_url: width: block.settings.item_image_width
-                              | image_tag
-                            }}
+                            <div
+                              class="header__megamenu-item-image-wrapper"
+                              style="width: {{ block.settings.item_image_width }}px; height: {{ block.settings.item_image_width }}px;"
+                            >
+                              {{
+                                block.settings.item_image
+                                | image_url: width: block.settings.item_image_width
+                                | image_tag
+                              }}
                             </div>
                           {% endif %}
                           <span class="underline-effect">{{ block.settings.item_title }}</span>
@@ -206,10 +247,6 @@
                 </div>
               </div>
             {% endif %}
-
-            <div class="button">
-              
-            </div>
           </ul>
         </div>
       {% else %}

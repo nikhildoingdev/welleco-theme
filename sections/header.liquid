@@ -4,9 +4,6 @@
     /* Variables */
     --header-bg: transparent;
     --header-text-color: #fff;
-    --header-btn-bg: transparent;
-    --header-btn-text-color: #fff;
-    --header-btn-border-color: #fff;
 
 
     position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %};
@@ -713,6 +710,17 @@
       ],
       "default": "on-scroll-up",
       "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
     },
     {
       "type": "checkbox",
