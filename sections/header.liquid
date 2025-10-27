@@ -30,6 +30,10 @@
       .header__logo {
         filter: brightness(0);
       }
+
+      #main-header {
+        border-bottom: 2px solid #e1e1e1;
+      }
      }
   }
 
@@ -61,10 +65,11 @@
     align-items: center;
     gap: 0 3rem;
     margin-inline: auto;
-    padding: 0 {{ section.settings.padding_horizontal }}px;
-    transition: background-color 0.3s ease;
+    padding: 0 4rem;
     height: 86px;
     background: var(--header-bg);
+    border-bottom: 2px solid transparent;
+    transition: background 0.3s ease, border .3s ease;
   }
   #main-header:hover {
     background-color: #fff;
@@ -115,11 +120,11 @@
     cursor: pointer;
   }
 
-  .menu-link{
+  .underline-effect{
     position: relative;
   }
 
-  .menu-link::after{
+  .underline-effect::after{
     content: "";
     position: absolute;
     left: 50%;
@@ -132,7 +137,7 @@
     transition: transform 0.3s ease;
   }
 
-  .header__menu-item:hover .menu-link::after{
+  .header__menu-item:hover > .underline-effect::after{
     transform: translateX(-50%) scaleX(1);
   }
 
@@ -619,7 +624,6 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
   "settings": [
     {
       "type": "select",
@@ -825,7 +829,55 @@
   ],
   "blocks": [
     {
-      "type": "@app"
+      "type": "megamenu",
+      "name": "Mega Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_handle",
+          "label": "Menu link handle (e.g. about etc )"
+        },
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Menu title"
+        }
+      ]
+    },
+    {
+      "type": "megamenu_item",
+      "name": "Mega Menu Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_menu_handle",
+          "label": "Parent Mega Menu handle"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Item image"
+        },
+        {
+          "type": "range",
+          "id": "item_image_width",
+          "label": "Item image width",
+          "min": 100,
+          "max": 500,
+          "step": 5,
+          "default": 250
+        },
+        { 
+          "type": "text",
+          "id": "item_title",
+          "label": "Item title"
+        },
+        {
+          "type": "url",
+          "id": "item_link",
+          "label": "Item link"
+        }
+      ]
     }
   ]
 }

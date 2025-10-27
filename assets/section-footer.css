@@ -497,10 +497,10 @@ ul.footer-block__details-content a.link.link--text.list-menu__item.list-menu__it
 }
 
 .footer-block.grid__item .footer__list-social {
-  justify-content: center;
+  justify-content: space-between;
   list-style: none;
   padding-inline-start: 0;
-  margin-block-start: 1em;
+  margin-block-start: 2.4rem;
 }
 
 /* MEDIA QUERIES */

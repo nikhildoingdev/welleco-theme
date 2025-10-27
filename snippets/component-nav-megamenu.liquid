@@ -14,7 +14,6 @@
     left: 0;
     top: 100%;
     width: 100%;
-    margin-top: 1px;
     background: #fff;
   }
   #main-header .nav-megamenu .page-width {
@@ -22,7 +21,7 @@
     grid-template-columns: repeat(6, minmax(0, 1fr));
     margin-inline: auto;
     align-items: flex-start;
-    padding: 30px 20px;
+    padding: 3.2rem 4rem;
   }
   #main-header .nav-megamenu .nav-megamenu_child {
     position: static;
@@ -54,14 +53,73 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
+
+  .header__megamenu-custom {
+    grid-column: span 6;
+  }
+
+  .header__megamenu-items {
+    display: flex;
+    gap: 2.4rem;
+  }
+
+  .header__megamenu-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .header__megamenu-item:hover .underline-effect::after{
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .header__megamenu-item-image-wrapper {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .header__megamenu-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .header__megamenu-item span {
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    color: var(--color-foreground);
+    width: fit-content;
+  }
 {% endstylesheet %}
+
 <ul class="header__menu-list">
   {% for link in menu.links %}
-    <li x-data="{ menuOpen: false }" @mouseover="menuOpen = true" @mouseleave="menuOpen = false" class="header__menu-item">
-      {% if link.links != blank %}
+    {% assign link_title = link.title | downcase %}
+    {% comment %} Find megamenu block by matching menu_handle (case insensitive) {% endcomment %}
+    {% assign megamenu_block = null %}
+    {% for block in section.blocks %}
+      {% if block.type == 'megamenu' %}
+        {% assign block_handle = block.settings.menu_handle | downcase %}
+        {% if block_handle == link_title %}
+          {% assign megamenu_block = block %}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <li
+      x-data="{ menuOpen: false }"
+      @mouseover="menuOpen = true"
+      @mouseleave="menuOpen = false"
+      class="header__menu-item"
+    >
+      {% if link.links != blank or megamenu_block %}
         <button
           :class="{ 'menu-open': menuOpen }"
-          class="menu-toggle menu-link"
+          class="menu-toggle underline-effect"
         >
           {{- link.title | escape -}}
         </button>
@@ -116,11 +174,43 @@
                 </div>
               </div>
             {% endif %}
+
+            {% comment %} Render custom megamenu content if it exists {% endcomment %}
+            {% if megamenu_block %}
+              <div class="header__megamenu-custom header__megamenu--{{ link.title | handleize }}">
+                {% if megamenu_block.settings.heading != blank %}
+                  <h3 class="header__megamenu-heading">{{ megamenu_block.settings.heading }}</h3>
+                {% endif %}
+
+                <div class="header__megamenu-items">
+                  {% comment %} Find child items by matching parent_menu_handle (case insensitive) {% endcomment %}
+                  {% for block in section.blocks %}
+                    {% if block.type == 'megamenu_item' %}
+                      {% assign block_parent_handle = block.settings.parent_menu_handle | downcase %}
+                      {% if block_parent_handle == link_title %}
+                        <a href="{{ block.settings.item_link }}" class="header__megamenu-item">
+                          {% if block.settings.item_image %}
+                            <div class="header__megamenu-item-image-wrapper" style="width: {{ block.settings.item_image_width }}px; height: {{ block.settings.item_image_width }}px;">   
+                            {{
+                              block.settings.item_image
+                              | image_url: width: block.settings.item_image_width
+                              | image_tag
+                            }}
+                            </div>
+                          {% endif %}
+                          <span class="underline-effect">{{ block.settings.item_title }}</span>
+                        </a>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
           </ul>
         </div>
       {% else %}
         <a
-          class="menu-link"
+          class="underline-effect"
           href="{{ link.url }}"
           {% if link.current %}
             aria-current="page"
