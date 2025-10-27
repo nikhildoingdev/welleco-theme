@@ -70,12 +70,34 @@
             "item_title": "Innovation",
             "item_link": ""
           }
+        },
+        "megamenu_item_MHh6aL": {
+          "type": "megamenu_item",
+          "settings": {
+            "parent_menu_handle": "About",
+            "item_image": "shopify://shop_images/awards.jpg",
+            "item_image_width": 250,
+            "item_title": "Awards",
+            "item_link": ""
+          }
+        },
+        "megamenu_item_kGALGg": {
+          "type": "megamenu_item",
+          "settings": {
+            "parent_menu_handle": "About",
+            "item_image": "shopify://shop_images/welle_community.jpg",
+            "item_image_width": 250,
+            "item_title": "Welle Community",
+            "item_link": ""
+          }
         }
       },
       "block_order": [
         "megamenu_AAUj9w",
         "megamenu_item_KkDrpa",
-        "megamenu_item_AhUFLP"
+        "megamenu_item_AhUFLP",
+        "megamenu_item_MHh6aL",
+        "megamenu_item_kGALGg"
       ],
       "settings": {
         "logo_position": "middle-center",
