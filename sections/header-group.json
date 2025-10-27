@@ -43,6 +43,18 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "megamenu_AAUj9w": {
+          "type": "megamenu",
+          "settings": {
+            "menu_handle": "About",
+            "menu_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "megamenu_AAUj9w"
+      ],
       "settings": {
         "logo_position": "middle-center",
         "menu_position": "left",
