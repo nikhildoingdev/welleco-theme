@@ -3,7 +3,6 @@
 
 <style>
   #shopify-section-{{ section.id }} {
-    background-color: rgb(243, 243, 243);
     z-index: 1;
     position: relative;
   }
@@ -67,7 +66,7 @@
                       >
                         {{
                           settings.brand_image
-                          | image_url: width: 1100
+                          | image_url: width: 600
                           | image_tag:
                             loading: 'lazy',
                             widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
