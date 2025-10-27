@@ -50,10 +50,21 @@
             "menu_handle": "About",
             "menu_title": ""
           }
+        },
+        "megamenu_item_KkDrpa": {
+          "type": "megamenu_item",
+          "settings": {
+            "parent_menu_handle": "About",
+            "item_image": "shopify://shop_images/our_story.jpg",
+            "item_image_width": 250,
+            "item_title": "Our Story",
+            "item_link": ""
+          }
         }
       },
       "block_order": [
-        "megamenu_AAUj9w"
+        "megamenu_AAUj9w",
+        "megamenu_item_KkDrpa"
       ],
       "settings": {
         "logo_position": "middle-center",
