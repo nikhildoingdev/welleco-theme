@@ -21,13 +21,14 @@
   }
   #main-header .nav-megamenu .page-width {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-content: space-between;
     margin-inline: auto;
-    row-gap: 0;
+    row-gap: 4rem;
     align-items: flex-start;
     padding: 3.2rem 4rem;
   }
+
   #main-header .nav-megamenu .nav-megamenu_child {
     position: static;
     margin-top: 2rem;
@@ -106,26 +107,24 @@
   }
 
   .megamenu__button {
-    margin-top: -114px;
-    grid-column: span 6;
-    place-self: center;
-    width: fit-content;
-    padding: 1.5rem 3rem;
-    background: var(--header-bg);
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid var(--header-text-color);
-    transition: all 0.3s ease;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: start;
+    margin: 2rem;
   }
 
   .megamenu__button span {
+    width: fit-content;
+    padding: 1.5rem 3rem;
+    background: var(--header-bg);
+    text-transform: uppercase;
+    border: 1px solid var(--header-text-color);
+    transition: all 0.3s ease;
     color: var(--header-text-color);
     transition: all 0.3s ease;
   }
-  .megamenu__button:hover {
+  .megamenu__button span:hover {
     background: var(--header-text-color);
-  }
-  .megamenu__button:hover span {
     color: var(--header-bg);
   }
 {% endstylesheet %}
@@ -195,11 +194,13 @@
               </li>
             {%- endfor -%}
 
-            {% if link.title == 'Shop' %}
+            {% if link.title == 'Shop' and section.settings.show_products %}
               <div class="featured-products">
-                <h2 class="featured-products__heading">Featured</h2>
+                <h2 class="featured-products__heading">{{ section.settings.products_heading }}</h2>
                 <div class="product-grid">
-                  {% for product in collections.featured.products %}
+                  {% for product in collections[section.settings.collection].products
+                    limit: section.settings.products_count
+                  %}
                     {% render 'component-product-card',
                       card_product: product,
                       media_aspect_ratio: 'adapt',
@@ -208,10 +209,11 @@
                   {% endfor %}
                 </div>
               </div>
-              <a href="{{ section.settings.button_link }}" class="megamenu__button"
-                ><span>{{ section.settings.button_text }}</span></a
-              >
             {% endif %}
+
+            <a href="{{ section.settings.button_link }}" class="megamenu__button"
+              ><span>{{ section.settings.button_text }}</span></a
+            >
 
             {% comment %} Render custom megamenu content if it exists {% endcomment %}
             {% if megamenu_block %}

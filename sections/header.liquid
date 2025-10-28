@@ -780,6 +780,37 @@
     },
     {
       "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_products",
+      "default": true,
+      "label": "Show products"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select collection",
+      "info": "Select a collection to display products in the header"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Number of products to display",
+      "min": 1,
+      "max": 4,
+      "default": 2,
+      "step": 1
+    },
+    {
+      "type": "header",
       "content": "t:sections.header.settings.mobile_layout.content"
     },
     {
@@ -835,6 +866,22 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_horizontal",
       "default": 20
+    },
+    {
+      "type": "select",
+      "id": "cart_type",
+      "label": "Cart type",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "Drawer"
+        },
+        {
+          "value": "notification",
+          "label": "Notification"
+        }
+      ],
+      "default": "drawer"
     }
   ],
   "blocks": [

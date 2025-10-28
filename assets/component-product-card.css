@@ -16,7 +16,12 @@
 .product-card {
   position: relative;
   overflow: hidden;
-  height: calc(100% - 114px);
+}
+.quick-add {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  overflow: hidden;
 }
 
 .product-card .card-information {
@@ -31,7 +36,8 @@
 }
 
 .card-information-child {
-  padding: 0 1rem
+  padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 .product-card:hover .card-information {
@@ -63,6 +69,7 @@
   position: relative;
   text-transform: uppercase;
 }
+
 
 .card-button__subscribe {
   background: #fff;
