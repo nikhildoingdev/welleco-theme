@@ -55,6 +55,9 @@
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     font-size: 1.6rem;
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
   }
   #main-header .nav-megamenu_child a {
     display: block;
@@ -188,6 +191,11 @@
                   {% endif %}
                 >
                   {{ childlink.title | escape }}
+                {% if forloop.first %}
+                  <span class="nav-megamenu__icon" aria-hidden="true" style="margin-left: 0.6rem; vertical-align: middle;">
+                    {{ 'icon-side-arrow.svg' | inline_asset_content }}
+                  </span>
+                {% endif %}
                 </a>
                 {%- if childlink.links != blank -%}
                   <ul class="nav-megamenu_child" role="list">
