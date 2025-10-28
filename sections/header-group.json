@@ -110,7 +110,7 @@
         "button_link": "shopify://collections",
         "show_line_separator": false,
         "color_scheme": "scheme-4a86956d-3cbc-4d72-a82c-b1467ab1b7eb",
-        "menu_color_scheme": "scheme-4a86956d-3cbc-4d72-a82c-b1467ab1b7eb",
+        "menu_color_scheme": "scheme-1",
         "enable_country_selector": false,
         "enable_language_selector": false,
         "enable_customer_avatar": true,
