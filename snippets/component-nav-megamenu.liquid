@@ -8,7 +8,7 @@
   @example
   {% render 'component-nav-megamenu', menu: section.settings.menu, menu_color_scheme: section.settings.menu_color_scheme %}
 {% enddoc %}
-{% stylesheet %}
+{% style %}
   #main-header *:focus {
     outline: none;
   }
@@ -21,13 +21,25 @@
   }
   #main-header .nav-megamenu .page-width {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    justify-content: space-between;
+    align-items: flex-start;
     margin-inline: auto;
     row-gap: 4rem;
-    align-items: flex-start;
     padding: 3.2rem 4rem;
+    transition: all 0.3s ease;
   }
+
+  {% if section.settings.show_products %}
+    #main-header .nav-megamenu .page-width {
+      grid-template-columns: 1fr 1fr 1fr auto;
+      column-gap: 4rem;
+      justify-content: space-between;
+    }
+  {% else %}
+    #main-header .nav-megamenu .page-width {
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 6rem;
+    }
+  {% endif %}
 
   #main-header .nav-megamenu .nav-megamenu_child {
     position: static;
@@ -53,21 +65,23 @@
   }
 
   .featured-products {
-    grid-column: span 3;
+    grid-column: 4;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: fit-content;
   }
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 250px));
-    justify-content: start;
+    grid-template-columns: repeat({{ section.settings.products_count }}, 250px);
     gap: 2.4rem;
   }
 
+
   .header__megamenu-custom {
-    grid-column: span 6;
+    grid-column: span 3;
+    align-self: start;
   }
 
   .header__megamenu-items {
@@ -110,7 +124,7 @@
     grid-column: 1 / -1;
     justify-self: center;
     align-self: start;
-    margin: 2rem;
+    margin-bottom: 4rem;
   }
 
   .megamenu__button span {
@@ -127,7 +141,7 @@
     background: var(--header-text-color);
     color: var(--header-bg);
   }
-{% endstylesheet %}
+{% endstyle %}
 
 <ul class="header__menu-list">
   {% for link in menu.links %}
@@ -211,9 +225,11 @@
               </div>
             {% endif %}
 
-            <a href="{{ section.settings.button_link }}" class="megamenu__button"
-              ><span>{{ section.settings.button_text }}</span></a
-            >
+            {% if link.title == 'Shop' %}
+              <a href="{{ section.settings.button_link }}" class="megamenu__button"
+                ><span>{{ section.settings.button_text }}</span></a
+              >
+            {% endif %}
 
             {% comment %} Render custom megamenu content if it exists {% endcomment %}
             {% if megamenu_block %}

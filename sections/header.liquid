@@ -351,7 +351,7 @@
     color: rgb(var(--color-foreground));
   }
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1300px) {
     #main-header nav ul{
       gap: 4.8rem;
     }
@@ -361,7 +361,7 @@
     }
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1210px) {
     #main-header nav ul{
       gap: 3.2rem;
     }
@@ -370,7 +370,7 @@
     }
   }
 
-  @media (min-width: 1091px) {
+  @media (min-width: 1111px) {
     {% unless section.settings.menu_type_desktop == 'drawer' %}
       #header-drawer {
         display: none;
@@ -378,7 +378,7 @@
     {% endunless %}
   }
 
-  @media (max-width: 1090px) {
+  @media (max-width: 1110px) {
     #main-header > nav,
     .header__localization,
     .header__quiz,
@@ -400,6 +400,15 @@
     #predictive-search-wrapper {
         border-top: 1px solid rgba(var(--color-foreground),var(--color-background));
     }
+
+    .header-wrapper {
+    --header-bg: #fff;
+      --header-text-color: #181818;
+    }
+    .header__logo {
+      filter: brightness(0);
+      --logo-height: 42px;
+    }
   }
   @media (min-width: 1025px) {
     .header-menu-position-center {
@@ -412,14 +421,7 @@
     }
   }
   @media (max-width: 1024px) {
-    .header-wrapper {
-    --header-bg: #fff;
-      --header-text-color: #181818;
-    }
-    .header__logo {
-      filter: brightness(0);
-      --logo-height: 42px;
-    }
+
   }
 
   @media (max-width: 768px) {
@@ -924,7 +926,7 @@
           "step": 5,
           "default": 250
         },
-        { 
+        {
           "type": "text",
           "id": "item_title",
           "label": "Item title"

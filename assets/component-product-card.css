@@ -92,6 +92,9 @@
 }
 
 .card-heading, .card__heading {
+  overflow: hidden;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
   padding: 1rem 0 0 0;
   margin: 0;
   font-size: 1.6rem;
