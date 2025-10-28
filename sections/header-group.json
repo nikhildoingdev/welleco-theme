@@ -103,6 +103,7 @@
         "logo_position": "middle-center",
         "menu_position": "left",
         "menu": "welleco-menu",
+        "under_menu": "below-header",
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "button_text": "SHOP ALL",
