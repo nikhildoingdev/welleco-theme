@@ -393,6 +393,7 @@
         auto 1fr auto
       {% endif %};
       padding: {{ section.settings.padding_top | divided_by: 1.5 }}px 20px {{ section.settings.padding_bottom | divided_by: 1.5 }}px;
+      border-bottom: 2px solid #e1e1e1;
     }
     #header-search predictive-search {
       position: static;
@@ -409,6 +410,13 @@
       filter: brightness(0);
       --logo-height: 42px;
     }
+    .header-drawer_icons svg:first-child path {
+      fill: var(--header-text-color);
+    }
+
+    .header-drawer_icons svg:last-child path {
+      stroke: var(--header-text-color);
+    }
   }
   @media (min-width: 1025px) {
     .header-menu-position-center {
@@ -419,9 +427,6 @@
     {
       min-width: 160px;
     }
-  }
-  @media (max-width: 1024px) {
-
   }
 
   @media (max-width: 768px) {
@@ -600,6 +605,11 @@
     </div>
   </header>
 
+  {% comment %} Under Menu {% endcomment %}
+  {% if section.settings.under_menu != blank %}
+    {% render 'component-nav-under-menu', menu: section.settings.under_menu %}
+  {% endif %}
+
   {% comment %} Cart notification {% endcomment %}
   {%- if settings.cart_type == 'notification' -%}
     {%- render 'component-cart-notification',
@@ -667,6 +677,12 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "link_list",
+      "id": "under_menu",
+      "label": "Under menu",
+      "info": "Select a link list to display under the header"
     },
     {
       "type": "select",

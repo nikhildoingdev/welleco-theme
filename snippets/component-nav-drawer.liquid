@@ -20,12 +20,12 @@
 {% stylesheet %}
   #menu-drawer {
     position: absolute;
-    top: calc(100% + 1px);
+    top: 86px;
     left: 0;
-    width: min(500px, 100%);
-    height: calc(100vh - var(--header-height));
+    width: min(1110px, 100%);
+    height: calc(100vh - 126px);
     transform: translateX(-100%);
-    z-index: -1;
+    z-index: 100;
     transition: 300ms ease;
     display: flex;
     flex-direction: column;
@@ -116,7 +116,7 @@
     @click="drawerOpen = !drawerOpen"
     :class="{ 'drawer-open': drawerOpen }"
   >
-    {{- 'icon-menu.svg' | inline_asset_content -}}
+    {{- 'icon-menu.svg' | inline_asset_content | replace: '<svg', '<svg class="icon icon-menu"' -}}
     {{- 'icon-close.svg' | inline_asset_content -}}
   </button>
   <div
