@@ -106,7 +106,7 @@
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "button_text": "SHOP ALL",
-        "button_link": "",
+        "button_link": "shopify://collections",
         "show_line_separator": false,
         "color_scheme": "scheme-4a86956d-3cbc-4d72-a82c-b1467ab1b7eb",
         "menu_color_scheme": "scheme-4a86956d-3cbc-4d72-a82c-b1467ab1b7eb",
