@@ -24,6 +24,7 @@
     left: 0;
     width: min(1110px, 100%);
     height: calc(100vh - 126px);
+    overflow-y: auto;
     transform: translateX(-100%);
     z-index: 100;
     transition: 300ms ease;
@@ -44,23 +45,9 @@
   #menu-drawer ul {
     list-style: none;
     margin: 0;
-    padding: 0;
   }
   #menu-drawer li {
     width: 100%;
-    overflow: hidden;
-  }
-  #menu-drawer a,
-  #menu-drawer .menu-toggle {
-    display: flex;
-    gap: 10px;
-    font-size: 15px;
-    line-height: 1.5;
-    padding: 12px 18px;
-    border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
-    text-decoration: none;
-    width: 100%;
-    color: rgba(var(--color-foreground), 0.75);
   }
   #menu-drawer a:hover {
     color: rgb(var(--color-foreground));
@@ -105,6 +92,13 @@
       fill: var(--header-text-color);
     }
   }
+
+  @media (max-width: 768px) {
+    #menu-drawer {
+      top: 68px;
+      height: calc(100vh - 108px);
+    }
+  }
 {% endstylesheet %}
 <div
   id="header-drawer"
@@ -126,8 +120,8 @@
   >
     {% render 'component-nav-dropdown', nav_style: 'drawer', menu: menu, menu_color_scheme: menu_color_scheme %}
 
+    {% if enable_country_selector or enable_language_selector %}
     <div class="menu-drawer_action">
-      {% if enable_country_selector or enable_language_selector %}
         <div class="menu-drawer_localization">
           {%- render 'component-localization-form',
             enable_country_selector: enable_country_selector,
@@ -135,17 +129,7 @@
             menu_color_scheme: menu_color_scheme
           -%}
         </div>
+        </div>
       {% endif %}
-
-      {% if shop.customer_accounts_enabled and enable_customer_avatar %}
-        <a
-          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          rel="nofollow"
-          class="menu-drawer_account"
-        >
-          {{ 'icon-account.svg' | inline_asset_content }}
-        </a>
-      {% endif %}
-    </div>
   </div>
 </div>

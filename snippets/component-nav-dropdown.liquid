@@ -9,43 +9,161 @@
   @example
   {% render 'component-nav-dropdown', nav_style: 'drawer', menu: section.settings.menu, menu_color_scheme: section.settings.menu_color_scheme %}
 {% enddoc %}
-{% unless nav_style == 'drawer' %}
-  {% style %}
-    #main-header .nav-dropdown,
-    #main-header .nav-dropdown_child {
-      position: absolute;
-      top: 100%;
-      gap: 0;
-      align-items: stretch;
-      flex-direction: column;
-      margin-top: 1px;
-      overflow: hidden;
+{% style %}
+  .menu-drawer__navigation {
+    padding: 3.2rem 2.8rem;
+  }
+
+  .menu-drawer__search {
+    position: sticky;
+    top: 0;
+    display: flex;
+    background: #fff;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.4);
+  }
+
+  .menu-drawer__search input {
+    width: 100%;
+    border: 0;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
+    color: inherit;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .menu-drawer__link,
+  .menu-drawer__toggle {
+    margin-top: 2rem;
+    padding: 1.6rem 0;
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
+    color: rgba(var(--color-foreground), 0.75);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .menu-drawer__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .menu-drawer__navigation > .featured-products {
+    margin-top: 2rem;
+    padding-bottom: 3.2rem;
+    padding-top: 1.6rem;
+    width: 100%;
+    max-width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .featured-products > .product-grid {
+    display: flex;
+    gap: 1.2rem;
+    width: 100%
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .featured-products > .product-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-grid > .product-card {
+    flex: 0 0 auto; /* prevent cards from shrinking */
+    min-width: 190px;
+    max-width: 224px;
+  }
+
+  .menu-last-three-wrapper {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2.4rem;
+  }
+
+  .last_three_link {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
+    color: var(--color-foreground);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 2.4rem 0;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .last_three_link > .image-wrapper {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    overflow: hidden;
+  }
+
+  .last_three_link > .image-wrapper > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .menu-drawer__search input {
+      font-size: 1.6rem;
     }
-    #main-header .nav-dropdown {
-      box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+    .menu-drawer__navigation {
+      padding: 2.4rem 2.0rem;
+  } 
+    .menu-drawer__toggle {
+      font-size: 1.6rem;
     }
-    #main-header .nav-dropdown_child {
-      position: static;
+
+    .menu-last-three-wrapper {
+      grid-template-columns: 1fr;
     }
-    #main-header .nav-dropdown a,
-    #main-header .nav-dropdown .menu-toggle {
-      display: flex;
-      min-width: 20ch;
-      width: 100%;
-      font-size: 15px;
-      line-height: 1.5;
-      padding: 12px 18px;
-      border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
+
+    .last_three_link {
+      font-size: 1.6rem;
+      padding-bottom: 1.6rem;
+      padding-top: 0;
     }
-  {% endstyle %}
-{% endunless %}
+
+    .last_three_link > .image-wrapper {
+      width: 80px;
+      height: 80px;
+    }
+  }
+{% endstyle %}
 
 <ul
-  {% if nav_style == 'drawer' %}
-    class="menu-drawer_navigation"
-  {% endif %}
+  class="menu-drawer__navigation"
 >
+  {% comment %} Search {% endcomment %}
+  <li class="menu-drawer__search">
+    <input type="text" placeholder="FIND YOUR WELLE">
+    {{ 'icon-search.svg' | inline_asset_content }}
+  </li>
+  {% assign total_links = menu.links.size %}
+  {% assign wrap_start_index = total_links | minus: 2 %}
+
   {% for link in menu.links %}
+    {% if forloop.index == wrap_start_index %}
+      <div class="menu-last-three-wrapper">
+    {% endif %}
+
     {% if forloop.first %}
       {% if link.links != blank %}
         {%- for childlink in link.links -%}
@@ -53,7 +171,7 @@
             {% if childlink.links == blank %}
               <a
                 href="{{ childlink.url }}"
-                class="header__menu-item"
+                class="menu-drawer__link"
                 {% if childlink.current %}
                   aria-current="page"
                 {% endif %}
@@ -64,10 +182,10 @@
               <div
                 @click="menuOpen = !menuOpen"
                 :class="{ 'menu-open': menuOpen }"
-                class="menu-toggle"
+                class="menu-drawer__toggle"
               >
                 {{- childlink.title | escape -}}
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+                {{- 'icon-side-arrow.svg' | inline_asset_content -}}
               </div>
               <ul
                 x-show="menuOpen"
@@ -80,7 +198,7 @@
                   <li>
                     <a
                       href="{{ grandchildlink.url }}"
-                      class="header__menu-item"
+                      class="menu-drawer__link"
                       {% if grandchildlink.current %}
                         aria-current="page"
                       {% endif %}
@@ -102,7 +220,7 @@
               %}
                 {% render 'component-product-card',
                   card_product: product,
-                  media_aspect_ratio: 'adapt',
+                  media_aspect_ratio: 'square',
                   quick_add: 'standard'
                 %}
               {% endfor %}
@@ -177,14 +295,44 @@
         {% else %}
           <a
             href="{{ link.url }}"
+            class="last_three_link"
             {% if link.current %}
               aria-current="page"
             {% endif %}
           >
+            {% if link.title == 'About' %}
+              <div class="image-wrapper">
+                <img src="{{ 'about_link.jpg' | asset_url }}">
+              </div>
+            {% elsif link.title == 'Journal' %}
+              <div class="image-wrapper">
+                <img src="{{ 'journal_link.jpg' | asset_url }}">
+              </div>
+            {% elsif link.title == 'Welle+ Members' %}
+              <div class="image-wrapper">
+                <img src="{{ 'welle_link.png' | asset_url }}">
+              </div>
+            {% endif %}
             {{- link.title | escape -}}
           </a>
         {% endif %}
       </li>
+      {% if forloop.last %}
+        <li x-data="{ menuOpen: false, activeSubMenu: null }" @click.outside="menuOpen = false; activeSubMenu = null">
+          <a
+            href="#"
+            class="last_three_link"
+          >
+            <div class="image-wrapper">
+              <img src="{{ 'login_link.jpg' | asset_url }}">
+            </div>
+            {{- 'Log in / Account' | escape -}}
+          </a>
+        </li>
+      {% endif %}
+    {% endif %}
+    {% if forloop.last %}
+      </div>
     {% endif %}
   {% endfor %}
 </ul>

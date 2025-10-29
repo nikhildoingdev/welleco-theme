@@ -67,6 +67,7 @@
     background: var(--header-bg);
     border-bottom: 2px solid transparent;
     transition: background 0.3s ease, border .3s ease;
+
   }
   #main-header:hover {
     background-color: #fff;
@@ -238,15 +239,14 @@
   #header__search-button svg path {
     fill: var(--header-text-color);
   }
+
   #header-search {
     position: absolute;
     inset: 0;
-    color: rgb(var(--color-foreground));
-    background: rgb(var(--color-background));
+    height: 100dvh;
     display: none;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
   }
 
   #header-search.active {
@@ -255,40 +255,51 @@
 
   {%- if settings.predictive_search_enabled -%}
     #header-search predictive-search {
-      position: relative;
-      display: flex;
-      width:min(750px, calc(100% - 3.5rem))
-    }
-    #predictive-search-wrapper {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: rgb(var(--color-background));
-      border: 1px solid rgba(var(--color-foreground),var(--color-background));
-      border-top: 0;
-      width: calc(100% - 2px);
-      max-height: 80vh;
+      max-width: 600px;
+      background: #fff;
+      width: 100%;
+      color: #181818;
+      border-radius: 1rem;
       overflow-y: auto;
-      z-index: 1000;
+      max-height: 60vh;
+    }
+
+    #header-search > predictive-search::-webkit-scrollbar {
+      display: none;
+    }
+
+    #predictive-search-wrapper {
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      #header-search predictive-search {
+        max-width: 768px;
+        height: 100dvh;
+      }
+      #predictive-search-wrapper {
+        height: 100dvh;
+      }
     }
   {%- endif -%}
 
   #header-search form {
-    position: relative;
-    border: 1px solid rgb(var(--color-foreground), 0.2);
-    width: min(750px, 100%);
-    height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1003;
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    padding-inline: 10px;
+    padding: 2rem;
+    border-bottom: 1px solid #e1e1e1;
   }
 
   #header-search form input {
     width: 100%;
     border: 0;
-    font-size: 15px;
-    color: inherit;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
     background: transparent;
     outline: none;
     box-shadow: none;
@@ -432,6 +443,10 @@
   @media (max-width: 768px) {
     .header__logo {
       --logo-height: 36px;
+    }
+
+    #main-header {
+      height: 68px;
     }
 
     .header__actions {
@@ -599,9 +614,6 @@
           </button>
         </form>
       {%- endif -%}
-      <button id="close-header-search" @click="searchOpen = !searchOpen">
-        {{- 'icon-close.svg' | inline_asset_content -}}
-      </button>
     </div>
   </header>
 
@@ -824,7 +836,7 @@
       "label": "Number of products to display",
       "min": 1,
       "max": 4,
-      "default": 2,
+      "default": 4,
       "step": 1
     },
     {

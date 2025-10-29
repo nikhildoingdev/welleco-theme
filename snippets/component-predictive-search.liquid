@@ -1,12 +1,26 @@
 {% doc %}
-  Renders the predictive search form and an empty results container that can be
-  populated via JavaScript.
+  Renders the predictive search form with products grid only.
+  Shows initial featured products, then replaces with search results.
 
   @param {string} [context] - Optional context for the predictive search
 
   @example
   {% render 'component-predictive-search' %}
 {% enddoc %}
+
+{% comment %} Render overlay OUTSIDE of predictive-search component {% endcomment %}
+{% if context == 'header' %}
+  <div
+    id="predictive-search-overlay"
+    x-on:click="searchOpen = false"
+    x-transition
+    x-cloak
+    x-show="searchOpen"
+    :style="{ opacity: searchOpen ? 1 : 0 }"
+    class="predictive-search-overlay"
+  ></div>
+{% endif %}
+
 <predictive-search x-ref="predictiveSearch">
   <form action="{{ routes.search_url }}" method="get" role="search">
     <input
@@ -39,21 +53,30 @@
       {{- 'icon-search.svg' | inline_asset_content -}}
     </button>
   </form>
+  
   <div id="predictive-search-wrapper" tabindex="-1">
     <div class="predictive-search__loading hidden">
       {{ 'icon-loader.svg' | inline_asset_content }}
     </div>
-    <div id="predictive-search"></div>
+    
+    <div class="predictive-search__products-container">
+      <h2 class="predictive-search__heading">Products</h2>
+      
+      <div id="predictive-search-results" class="product-grid product-grid--4-col">
+        {% comment %} Initial featured products {% endcomment %}
+        {% for product in collections['featured'].products limit: 4 %}
+          {% render 'component-product-card', 
+            card_product: product, 
+            media_aspect_ratio: 'square', 
+            quick_add: 'standard' 
+          %}
+        {% endfor %}
+      </div>
+      
+      {% comment %} No results message (hidden by default) {% endcomment %}
+      <div class="predictive-search__no-results hidden">
+        <p>No products found for your search.</p>
+      </div>
+    </div>
   </div>
-  {% if context == 'header' %}
-    <div
-      id="predictive-search-overlay"
-      x-on:click="searchOpen = false"
-      x-transition
-      x-cloak
-      x-show="searchOpen"
-      :style="{ opacity: searchOpen ? 1 : 0 }"
-      class="predictive-search-overlay"
-    ></div>
-  {% endif %}
 </predictive-search>
