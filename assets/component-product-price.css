@@ -1,8 +1,14 @@
 .price {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   letter-spacing: 0.8px;
   line-height: 1.5;
   color: inherit;
+}
+
+@media (max-width: 768px) {
+  .price {
+    font-size: 1.4rem;
+  }
 }
 
 .price > * {

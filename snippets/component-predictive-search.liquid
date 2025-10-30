@@ -23,6 +23,9 @@
 
 <predictive-search x-ref="predictiveSearch">
   <form action="{{ routes.search_url }}" method="get" role="search">
+    <button aria-label="Search">
+      {{- 'icon-search.svg' | inline_asset_content -}}
+    </button>
     <input
       type="search"
       name="q"
@@ -49,30 +52,23 @@
     >
       {{- 'icon-close.svg' | inline_asset_content -}}
     </button>
-    <button aria-label="Search">
-      {{- 'icon-search.svg' | inline_asset_content -}}
-    </button>
   </form>
-  
+
   <div id="predictive-search-wrapper" tabindex="-1">
     <div class="predictive-search__loading hidden">
       {{ 'icon-loader.svg' | inline_asset_content }}
     </div>
-    
+
     <div class="predictive-search__products-container">
       <h2 class="predictive-search__heading">Products</h2>
-      
-      <div id="predictive-search-results" class="product-grid product-grid--4-col">
+
+      <div id="predictive-search-results" class="results-product-grid">
         {% comment %} Initial featured products {% endcomment %}
-        {% for product in collections['featured'].products limit: 4 %}
-          {% render 'component-product-card', 
-            card_product: product, 
-            media_aspect_ratio: 'square', 
-            quick_add: 'standard' 
-          %}
+        {% for product in collections.featured.products limit: 4 %}
+          {% render 'component-product-card', card_product: product, media_aspect_ratio: 'square', quick_add: 'none' %}
         {% endfor %}
       </div>
-      
+
       {% comment %} No results message (hidden by default) {% endcomment %}
       <div class="predictive-search__no-results hidden">
         <p>No products found for your search.</p>

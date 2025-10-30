@@ -11,21 +11,22 @@ export class PredictiveSearch extends HTMLElement {
     this.searchTerm = this.input.value.trim();
     this.isOpen = false;
     this.abortController = new AbortController();
-    
-    // Store initial products HTML
+
+    // Save initial featured products HTML
     this.initialProductsHTML = this.resultsContainer.innerHTML;
-    
-    this.input.addEventListener('input', debounce((e) => this.onChange(e), 500));
+
+    // Event listeners
+    this.input.addEventListener('input', debounce((e) => this.onChange(e), 400));
     this.input.addEventListener('focus', (e) => this.onChange(e));
     this.handleClickOutside = this.handleClickOutside.bind(this);
     document.addEventListener('click', this.handleClickOutside);
   }
 
-  onChange(e) {
+  // 🔹 When input changes
+  onChange() {
     const newSearchTerm = this.input.value.trim();
     this.searchTerm = newSearchTerm;
 
-    // If search is empty, show initial featured products
     if (!this.searchTerm.length) {
       this.showInitialProducts();
       return;
@@ -35,133 +36,54 @@ export class PredictiveSearch extends HTMLElement {
     this.getSearchResults(this.searchTerm);
   }
 
+  // 🔹 Fetch rendered predictive search section (HTML)
   getSearchResults(searchTerm) {
-    // Abort previous request if still pending
+    // Cancel any ongoing fetch
     this.abortController.abort();
     this.abortController = new AbortController();
 
-    // Use the correct Shopify predictive search API endpoint
-    const params = new URLSearchParams({
-      q: searchTerm,
-      'resources[type]': 'product',
-      'resources[limit]': '8',
-      'resources[options][unavailable_products]': 'last',
-      'resources[options][fields]': 'title,product_type,variants.title,vendor'
-    });
+    const url = `/search/suggest?q=${encodeURIComponent(searchTerm)}&section_id=predictive-results`;
 
-    fetch(`/search/suggest.json?${params.toString()}`, {
-      signal: this.abortController.signal,
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
+    fetch(url, { signal: this.abortController.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        return response.text();
       })
-      .then(data => {
-        console.log('Search results:', data); // Debug log
-        
-        // Check if we have products in the response
-        if (data && data.resources && data.resources.results && data.resources.results.products) {
-          this.renderProducts(data.resources.results.products);
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newContent = doc.querySelector('#predictive-search-results');
+
+        if (newContent && newContent.innerHTML.trim().length > 0) {
+          this.renderResultsHTML(newContent.innerHTML);
         } else {
           this.showNoResults();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.name !== 'AbortError') {
-          console.error('Error fetching search results:', error);
+          console.error('Predictive search error:', error);
           this.showNoResults();
         }
       });
   }
 
-  renderProducts(products) {
+  // 🔹 Replace results area with new HTML
+  renderResultsHTML(html) {
     this.toggleLoading(false);
-    
-    if (!products || products.length === 0) {
-      this.showNoResults();
-      return;
-    }
-
     this.hideNoResults();
-    
-    // Clear existing products
-    this.resultsContainer.innerHTML = '';
-    
-    // Render each product
-    products.forEach(product => {
-      const productCard = this.createProductCard(product);
-      this.resultsContainer.appendChild(productCard);
-    });
-
+    this.resultsContainer.innerHTML = html;
     this.open();
   }
 
-  createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'product-card-wrapper';
-    
-    // Get the image URL - Shopify API returns image as a string URL
-    const imageUrl = product.image || product.featured_image;
-    
-    // Build price HTML - prices are in cents
-    let priceHTML = '';
-    const price = product.price / 100;
-    const comparePrice = product.compare_at_price_max / 100;
-    
-    if (product.price_varies) {
-      priceHTML = `<span class="price-item price-item--regular">From ${this.formatMoney(price)}</span>`;
-    } else if (comparePrice && comparePrice > price) {
-      priceHTML = `
-        <span class="price-item price-item--sale">${this.formatMoney(price)}</span>
-        <span class="price-item price-item--regular"><s>${this.formatMoney(comparePrice)}</s></span>
-      `;
-    } else {
-      priceHTML = `<span class="price-item price-item--regular">${this.formatMoney(price)}</span>`;
-    }
-    
-    card.innerHTML = `
-      <a href="${product.url}" class="product-card">
-        <div class="product-card__image-wrapper">
-          ${imageUrl ? `
-            <img 
-              src="${imageUrl}" 
-              alt="${product.title}"
-              class="product-card__image"
-              loading="lazy"
-            />
-          ` : '<div class="product-card__image-placeholder"></div>'}
-        </div>
-        <div class="product-card__info">
-          ${product.vendor ? `<p class="product-card__vendor">${product.vendor}</p>` : ''}
-          <h3 class="product-card__title">${product.title}</h3>
-          <div class="product-card__price price">
-            ${priceHTML}
-          </div>
-        </div>
-      </a>
-    `;
-    
-    return card;
-  }
-
-  formatMoney(amount) {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: window.Shopify?.currency?.active || 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  }
-
+  // 🔹 Restore featured products when input is empty
   showInitialProducts() {
-    // Restore the initial products HTML
     this.resultsContainer.innerHTML = this.initialProductsHTML;
     this.toggleLoading(false);
     this.hideNoResults();
   }
 
+  // 🔹 Show “no results” message
   showNoResults() {
     this.toggleLoading(false);
     this.resultsContainer.innerHTML = '';
@@ -172,7 +94,8 @@ export class PredictiveSearch extends HTMLElement {
   hideNoResults() {
     this.noResultsMessage?.classList.add('hidden');
   }
-  
+
+  // 🔹 Utility methods
   open() {
     this.toggleLoading(false);
     this.isOpen = true;
@@ -190,14 +113,12 @@ export class PredictiveSearch extends HTMLElement {
   }
 
   handleClickOutside(event) {
-    // Check if the click is outside the predictive search component
     if (this.isOpen && !this.contains(event.target)) {
       this.close();
     }
   }
 
   disconnectedCallback() {
-    // Clean up event listeners when component is removed
     document.removeEventListener('click', this.handleClickOutside);
     this.abortController.abort();
   }

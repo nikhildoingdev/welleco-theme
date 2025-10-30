@@ -17,6 +17,7 @@
   position: relative;
   overflow: hidden;
 }
+
 .quick-add {
   position: absolute;
   width: 100%;
@@ -40,7 +41,8 @@
   margin-bottom: 1rem;
 }
 
-.product-card:hover .card-information {
+
+.product-card.has-quick-add:hover .card-information {
   transform: translateY(-114px);
 }
 
@@ -136,8 +138,6 @@ h2.card-heading.product-grid-heading, .card__heading {
   max-width: 100%;
   box-sizing: border-box;
 }
-
-
 
 .product-color-swatches:empty {
   display: none;

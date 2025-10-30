@@ -140,7 +140,6 @@
   }
 
   /* Menu Enter */
-
   .header-menu-position-left ul {
     justify-content: flex-start;
   }
@@ -155,7 +154,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 3.2rem;
     cursor: pointer;
     border: 0;
     background: transparent;
@@ -233,10 +232,11 @@
     transition: color .3s ease;
   }
 
-  #header__search-button {
+  .header__search-button {
     cursor: pointer;
   }
-  #header__search-button svg path {
+
+  .header__search-button svg path {
     fill: var(--header-text-color);
   }
 
@@ -261,7 +261,7 @@
       color: #181818;
       border-radius: 1rem;
       overflow-y: auto;
-      max-height: 60vh;
+      max-height: 65vh;
     }
 
     #header-search > predictive-search::-webkit-scrollbar {
@@ -269,16 +269,16 @@
     }
 
     #predictive-search-wrapper {
-      padding: 2rem;
+      padding: 1.6rem;
     }
 
     @media (max-width: 768px) {
       #header-search predictive-search {
+        position: fixed;
+        top: 0;
         max-width: 768px;
-        height: 100dvh;
-      }
-      #predictive-search-wrapper {
-        height: 100dvh;
+        max-height: 100vh;
+        border-radius: 0;
       }
     }
   {%- endif -%}
@@ -290,7 +290,7 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    padding: 2rem;
+    padding: 1.6rem;
     border-bottom: 1px solid #e1e1e1;
   }
 
@@ -392,10 +392,18 @@
   @media (max-width: 1110px) {
     #main-header > nav,
     .header__localization,
-    .header__quiz,
-    #header__search-button {
+    .header__quiz {
       display: none;
     }
+
+    .header__search-button:first-of-type {
+      display: none;
+    }
+
+    .header__search-button:last-of-type {
+      display: block;
+    }
+
     #main-header {
       grid-template-columns:
       {% if section.settings.mobile_logo_position == 'center' %}
@@ -405,9 +413,6 @@
       {% endif %};
       padding: {{ section.settings.padding_top | divided_by: 1.5 }}px 20px {{ section.settings.padding_bottom | divided_by: 1.5 }}px;
       border-bottom: 2px solid #e1e1e1;
-    }
-    #header-search predictive-search {
-      position: static;
     }
     #predictive-search-wrapper {
         border-top: 1px solid rgba(var(--color-foreground),var(--color-background));
@@ -421,11 +426,11 @@
       filter: brightness(0);
       --logo-height: 42px;
     }
-    .header-drawer_icons svg:first-child path {
+    .header-drawer_icons > svg:first-child path {
       fill: var(--header-text-color);
     }
 
-    .header-drawer_icons svg:last-child path {
+    .header-drawer_icons >svg:last-child path {
       stroke: var(--header-text-color);
     }
   }
@@ -456,7 +461,7 @@
 {% endstyle %}
 
 {% capture header_search %}
-  <div id="header__search-button" @click="searchOpen = !searchOpen; $nextTick(() => { if (searchOpen) $refs.searchInput.focus() })">
+  <div class="header__search-button" @click="searchOpen = !searchOpen; $nextTick(() => { if (searchOpen) $refs.searchInput.focus() })">
     {{ 'icon-search.svg' | inline_asset_content }}
   </div>
 {% endcapture %}
@@ -494,10 +499,6 @@
       enable_customer_avatar: section.settings.enable_customer_avatar
     %}
 
-    {% if section.settings.logo_position == 'top-center' or section.settings.menu == blank %}
-      {{ header_search }}
-    {% endif %}
-
     {% if request.page_type == 'index' %}<h1 class="header-logo-container" style="margin: 0">{% endif %}
     <a href="{{ routes.root_url }}" class="header-shop_link" style="display: flex">
       {% if settings.logo != blank %}
@@ -528,9 +529,7 @@
     {% comment %} Header actions {% endcomment %}
     <div class="header__actions">
       {% comment %} Search button {% endcomment %}
-      {% unless section.settings.logo_position == 'top-center' or section.settings.menu == blank %}
-        {{ header_search }}
-      {% endunless %}
+      {{ header_search }}
 
       {% comment %} Localization form {% endcomment %}
       {% if section.settings.enable_country_selector or section.settings.enable_language_selector %}

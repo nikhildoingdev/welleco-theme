@@ -27,7 +27,7 @@
 {{ 'component-product-card.css' | asset_url | stylesheet_tag }}
 
 <product-card
-  class="product-card"
+  class="product-card {% if quick_add == 'standard' %}has-quick-add{% endif %}"
   data-product-id="{{ card_product.id }}"
 >
   <div class="product-card-child">
@@ -74,9 +74,11 @@
         <h2 class="card-heading product-grid-heading">
           <a href="{{ card_product.url }}">{{ card_product.title }}</a>
         </h2>
-        <p class="card-description">
-          {{ card_product.description | strip_html}}
-        </p>
+        {% if quick_add == 'standard' %}
+          <p class="card-description">
+            {{ card_product.description | strip_html }}
+          </p>
+        {% endif %}
         {% if show_vendor %}
           <span class="card-vendor">{{ card_product.vendor }}</span>
         {% endif %}
@@ -191,36 +193,34 @@
                   {% endif %}
                 >
                 <div class="card-buttons">
-                <button class="button button--full-width card-button__subscribe">
-                  SUBSCRIBE & SAVE 20%
-                </button>
-                <button
-                  id="{{ product_form_id }}-submit"
-                  type="submit"
-                  name="add"
-                  class="quick-add__submit button button--full-width button--secondary"
-                  aria-haspopup="dialog"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  aria-live="polite"
-                  data-sold-out-message="true"
-                  {% if card_product.selected_or_first_available_variant.available == false %}
-                    disabled
-                  {% endif %}
-                >
-                  <span>
-                    {%- if card_product.selected_or_first_available_variant.available -%}
-                      {{ 'products.product.add_to_cart' | t }}
-                    {%- else -%}
+                  <button class="button button--full-width card-button__subscribe">SUBSCRIBE & SAVE 20%</button>
+                  <button
+                    id="{{ product_form_id }}-submit"
+                    type="submit"
+                    name="add"
+                    class="quick-add__submit button button--full-width button--secondary"
+                    aria-haspopup="dialog"
+                    aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                    aria-live="polite"
+                    data-sold-out-message="true"
+                    {% if card_product.selected_or_first_available_variant.available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    <span>
+                      {%- if card_product.selected_or_first_available_variant.available -%}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {%- else -%}
+                        {{ 'products.product.sold_out' | t }}
+                      {%- endif -%}
+                    </span>
+                    <span class="sold-out-message hidden">
                       {{ 'products.product.sold_out' | t }}
-                    {%- endif -%}
-                  </span>
-                  <span class="sold-out-message hidden">
-                    {{ 'products.product.sold_out' | t }}
-                  </span>
-                  <div class="loading__spinner hidden">
-                    {{ 'icon-spinner.svg' | inline_asset_content }}
-                  </div>
-                </button>
+                    </span>
+                    <div class="loading__spinner hidden">
+                      {{ 'icon-spinner.svg' | inline_asset_content }}
+                    </div>
+                  </button>
                 </div>
               {%- endform -%}
             </ajax-cart-product-form>

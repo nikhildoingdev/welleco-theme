@@ -167,3 +167,24 @@ predictive-search form {
   background: #fff;
   padding: 1rem;
 }
+
+.results-product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.results-product-grid > .product-card {
+  min-width: auto;
+  max-width: auto;
+}
+
+.predictive-search__heading {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+  padding-bottom: 1rem;
+  border-bottom: .1rem solid rgba(var(--color-foreground), .08);
+}
