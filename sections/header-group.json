@@ -106,6 +106,14 @@
             "item_title": "New Arrivals",
             "item_url": ""
           }
+        },
+        "shop_all_item_tYdpAV": {
+          "type": "shop_all_item",
+          "settings": {
+            "item_image": "shopify://shop_images/best_sellers.jpg",
+            "item_title": "Best Sellers",
+            "item_url": ""
+          }
         }
       },
       "block_order": [
@@ -115,7 +123,8 @@
         "megamenu_item_MHh6aL",
         "megamenu_item_kGALGg",
         "shop_all_item_CGeRYE",
-        "shop_all_item_GrPCAw"
+        "shop_all_item_GrPCAw",
+        "shop_all_item_tYdpAV"
       ],
       "settings": {
         "logo_position": "middle-center",
