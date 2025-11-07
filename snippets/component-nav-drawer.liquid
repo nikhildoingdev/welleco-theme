@@ -144,17 +144,5 @@
     :class="{ 'drawer-open': drawerOpen }"
   >
     {% render 'component-nav-dropdown', nav_style: 'drawer', menu: menu, menu_color_scheme: menu_color_scheme %}
-
-    {% if enable_country_selector or enable_language_selector %}
-      <div class="menu-drawer_action">
-        <div class="menu-drawer_localization">
-          {%- render 'component-localization-form',
-            enable_country_selector: enable_country_selector,
-            enable_language_selector: enable_language_selector,
-            menu_color_scheme: menu_color_scheme
-          -%}
-        </div>
-      </div>
-    {% endif %}
   </div>
 </div>

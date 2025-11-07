@@ -58,11 +58,19 @@ predictive-search form {
 .predictive-search__loading {
   display: grid;
   place-items: center;
-  padding-block: .5rem;
+  width: 20px;
+  height: 20px;
 }
 
 .predictive-search__loading svg {
-  animation: spinner 2s infinite linear;
+  animation: spin 2s infinite linear;
+  stroke: #181818;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #predictive-results__wrapper h3 {
@@ -161,11 +169,6 @@ predictive-search form {
 
 .template-search__search {
   margin-top: 2rem;
-}
-
-.featured-products {
-  background: #fff;
-  padding: 1rem;
 }
 
 .results-product-grid {

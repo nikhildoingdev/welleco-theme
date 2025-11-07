@@ -277,6 +277,7 @@
         position: fixed;
         top: 0;
         max-width: 768px;
+        height: 100%;
         max-height: 100vh;
         border-radius: 0;
       }
@@ -288,6 +289,7 @@
     top: 0;
     z-index: 1003;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 10px;
     padding: 1.6rem;
@@ -319,29 +321,33 @@
 
   #header-search .reset__button {
     position: relative;
-    border: 1px solid rgba(var(--color-foreground),.2) !important;
+    border: 1px solid #181818 !important;
     border-radius: 10rem;
-    min-width: 16px;
-    height: 16px;
-    display: grid;
-    place-items: center;
-    align-self: center;
-    margin: 0;
-    margin-right: 15px;
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
 
-  #header-search .reset__button::before {
-    content: '';
-    position: absolute;
-    right: -15px;
-    width: 1px;
-    height: calc(100% + 10px);
-    background: rgba(var(--color-foreground),.08);
-  }
-
-  #header-search .reset__button svg.icon-close {
+  #header-search .reset__button svg {
     width: 10px !important;
     height: auto;
+  }
+
+  #header-search .reset__button svg path {
+    stroke: #181818;
+  }
+
+  .search__close-button {
+    position: relative;
+    min-width: 20px;
+    height: 20px;
+  }
+
+  .search__close-button svg path {
+    stroke: #181818;
   }
 
   /* clears the 'X' from Chrome */
@@ -474,14 +480,16 @@
       {% if settings.cart_type == 'drawer' %}
         cartOpen: false,
       {% endif %}
-      scrolled: false
+      scrolled: false,
+      localizationOpen: false
     }
   "
   {% if settings.cart_type == 'drawer' %}
     @cart-open.window="cartOpen = true"
   {% endif %}
   @scroll.window="scrolled = window.scrollY > 0"
-  :class="{ 'scrolled': scrolled }"
+  @localization-toggle.window="localizationOpen = $event.detail.open"
+  :class="{ 'scrolled': scrolled || localizationOpen }"
 >
   <header
     {% if section.settings.menu_position == 'center' %}
@@ -914,6 +922,27 @@
     }
   ],
   "blocks": [
+    {
+      "type": "shop_all_item",
+      "name": "Shop All Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Item Image"
+        },
+        {
+          "type": "text",
+          "id": "item_title",
+          "label": "Item Title"
+        },
+        {
+          "type": "url",
+          "id": "item_url",
+          "label": "Item URL"
+        }
+      ]
+    },
     {
       "type": "megamenu",
       "name": "Mega Menu",

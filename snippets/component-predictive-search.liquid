@@ -23,7 +23,7 @@
 
 <predictive-search x-ref="predictiveSearch">
   <form action="{{ routes.search_url }}" method="get" role="search">
-    <button aria-label="Search">
+    <button aria-label="Search" type="button">
       {{- 'icon-search.svg' | inline_asset_content -}}
     </button>
     <input
@@ -41,6 +41,10 @@
     >
     <input name="options[prefix]" type="hidden" value="last">
 
+    <div class="predictive-search__loading">
+      {{ 'icon-loader.svg' | inline_asset_content }}
+    </div>
+
     <button
       type="reset"
       class="reset__button"
@@ -52,13 +56,13 @@
     >
       {{- 'icon-close.svg' | inline_asset_content -}}
     </button>
+
+    <button @click="searchOpen = false" class="search__close-button" aria-label="Close search" type="button">
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
   </form>
 
   <div id="predictive-search-wrapper" tabindex="-1">
-    <div class="predictive-search__loading hidden">
-      {{ 'icon-loader.svg' | inline_asset_content }}
-    </div>
-
     <div class="predictive-search__products-container">
       <h2 class="predictive-search__heading">Products</h2>
 

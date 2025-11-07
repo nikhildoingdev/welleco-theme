@@ -1,0 +1,17 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item">
+      <a href="{{ routes.root_url }}">Home</a>
+    </li>
+    {% if collection %}
+      <li class="breadcrumb__item">
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+      </li>
+    {% endif %}
+    {% if product %}
+      <li class="breadcrumb__item" aria-current="page">
+        {{ product.title }}
+      </li>
+    {% endif %}
+  </ol>
+</nav>

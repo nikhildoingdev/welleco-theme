@@ -18,12 +18,13 @@
   localization-form {
     display: grid;
     place-items: center;
+    position: relative;
   }
   .localization-button {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: inherit;
+    color: var(--header-text-color);
     background: transparent;
     min-width: max-content;
     max-width: 100%;
@@ -32,51 +33,94 @@
     cursor: pointer;
   }
   .localization-button svg {
-    width: 12px;
+    width: 8px;
     height: auto;
     transition: 300ms ease;
   }
+  .localization-button svg path {
+    fill: var(--header-text-color);
+}
   .localization-button.localization-open svg {
-    transform: scaleY(-1);
+    transform: rotate(180deg);
   }
   .localization-list {
     position: absolute;
     box-shadow: #0000001a 0 1px 3px,#0000000f 0 1px 2px;
     list-style: none;
-    padding: 0;
-    margin-top: 10px;
+    padding: 1rem;
+    right: 0;
+    margin-top: 2rem;
     max-height: 60vh;
     overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
   }
   .localization-list a {
     display: block;
     color: inherit;
     font-size: 15px;
     line-height: 1.5;
-    padding: 12px 18px;
-    border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
+    text-wrap: nowrap;
+    padding: 12px 13px;
     text-decoration: none;
+  }
+
+  .localization-list li:hover {
+    background-color: #f5f5f5;
+    border-radius: 10px;
   }
 {% endstylesheet %}
 
 {% if enable_country_selector and localization.available_countries.size > 1 %}
+  {% liquid
+    # Map country codes to market information
+    assign current_country = localization.country.iso_code
+    assign market_code = ''
+    assign market_name = ''
+    
+    # Australia & New Zealand Market
+    if current_country == 'AU' or current_country == 'NZ'
+      assign market_code = 'AU'
+      assign market_name = 'Australia & New Zealand'
+    
+    # North & South America Market
+    elsif current_country == 'US' or current_country == 'CA' or current_country == 'MX' or current_country == 'BR' or current_country == 'AR' or current_country == 'CL' or current_country == 'CO' or current_country == 'PE'
+      assign market_code = 'US'
+      assign market_name = 'North & South America'
+    
+    # United Kingdom Market
+    elsif current_country == 'GB'
+      assign market_code = 'UK'
+      assign market_name = 'United Kingdom'
+    
+    # Europe Market (EU countries)
+    elsif current_country == 'AT' or current_country == 'BE' or current_country == 'BG' or current_country == 'HR' or current_country == 'CY' or current_country == 'CZ' or current_country == 'DK' or current_country == 'EE' or current_country == 'FI' or current_country == 'FR' or current_country == 'DE' or current_country == 'GR' or current_country == 'HU' or current_country == 'IE' or current_country == 'IT' or current_country == 'LV' or current_country == 'LT' or current_country == 'LU' or current_country == 'MT' or current_country == 'NL' or current_country == 'PL' or current_country == 'PT' or current_country == 'RO' or current_country == 'SK' or current_country == 'SI' or current_country == 'ES' or current_country == 'SE' or current_country == 'NO' or current_country == 'CH' or current_country == 'IS'
+      assign market_code = 'EU'
+      assign market_name = 'Europe'
+    
+    # Default fallback
+    else
+      assign market_code = current_country
+      assign market_name = localization.country.name
+    endif
+  %}
+
   <localization-form>
     {% form 'localization' %}
       <div
         class="localization-wrapper"
         x-data="{ localizationOpen: false }"
-        @click.outside="localizationOpen = false"
+        @click.outside="localizationOpen = false; $dispatch('localization-toggle', { open: false })"
       >
         <button
           type="button"
           class="localization-button"
           aria-controls="CountryList"
-          @click="localizationOpen = !localizationOpen"
+          @click="localizationOpen = !localizationOpen; $dispatch('localization-toggle', { open: localizationOpen })"
           :class="{ 'localization-open': localizationOpen }"
         >
           <span>
-            {{ localization.country.name }} ({{ localization.country.currency.iso_code }}
-            {{ localization.country.currency.symbol }})
+            {{ market_code }}
           </span>
           {{- 'icon-caret.svg' | inline_asset_content -}}
         </button>
@@ -88,20 +132,112 @@
           role="list"
           class="localization-list color-{{ menu_color_scheme }} gradient"
         >
-          {% for country in localization.available_countries %}
+          {% liquid
+            # Create list of unique markets with representative countries
+            assign shown_markets = ''
+            assign has_au = false
+            assign has_us = false
+            assign has_uk = false
+            assign has_eu = false
+            assign au_country = ''
+            assign us_country = ''
+            assign uk_country = ''
+            assign eu_country = ''
+            
+            # Find which markets are available and get representative country for each
+            for country in localization.available_countries
+              assign country_code = country.iso_code
+              
+              # Check Australia & New Zealand
+              if country_code == 'AU' or country_code == 'NZ'
+                if has_au == false
+                  assign has_au = true
+                  assign au_country = country_code
+                endif
+              
+              # Check North & South America
+              elsif country_code == 'US' or country_code == 'CA' or country_code == 'MX' or country_code == 'BR' or country_code == 'AR' or country_code == 'CL' or country_code == 'CO' or country_code == 'PE'
+                if has_us == false
+                  assign has_us = true
+                  assign us_country = country_code
+                endif
+              
+              # Check United Kingdom
+              elsif country_code == 'GB'
+                if has_uk == false
+                  assign has_uk = true
+                  assign uk_country = country_code
+                endif
+              
+              # Check Europe
+              elsif country_code == 'AT' or country_code == 'BE' or country_code == 'BG' or country_code == 'HR' or country_code == 'CY' or country_code == 'CZ' or country_code == 'DK' or country_code == 'EE' or country_code == 'FI' or country_code == 'FR' or country_code == 'DE' or country_code == 'GR' or country_code == 'HU' or country_code == 'IE' or country_code == 'IT' or country_code == 'LV' or country_code == 'LT' or country_code == 'LU' or country_code == 'MT' or country_code == 'NL' or country_code == 'PL' or country_code == 'PT' or country_code == 'RO' or country_code == 'SK' or country_code == 'SI' or country_code == 'ES' or country_code == 'SE' or country_code == 'NO' or country_code == 'CH' or country_code == 'IS'
+                if has_eu == false
+                  assign has_eu = true
+                  assign eu_country = country_code
+                endif
+              endif
+            endfor
+          %}
+
+          {% if has_au %}
             <li class="localization-item" tabindex="-1">
               <a
                 href="#"
-                {% if country.iso_code == localization.country.iso_code %}
+                {% if current_country == 'AU' or current_country == 'NZ' %}
                   aria-current="true"
                 {% endif %}
-                data-value="{{ country.iso_code }}"
+                data-value="{{ au_country }}"
               >
-                {{ country.name }} ({{ country.currency.iso_code }}
-                {{ country.currency.symbol }})
+                Australia & New Zealand
               </a>
             </li>
-          {% endfor %}
+          {% endif %}
+
+          {% if has_eu %}
+            <li class="localization-item" tabindex="-1">
+              <a
+                href="#"
+                {% liquid
+                  if current_country == 'AT' or current_country == 'BE' or current_country == 'BG' or current_country == 'HR' or current_country == 'CY' or current_country == 'CZ' or current_country == 'DK' or current_country == 'EE' or current_country == 'FI' or current_country == 'FR' or current_country == 'DE' or current_country == 'GR' or current_country == 'HU' or current_country == 'IE' or current_country == 'IT' or current_country == 'LV' or current_country == 'LT' or current_country == 'LU' or current_country == 'MT' or current_country == 'NL' or current_country == 'PL' or current_country == 'PT' or current_country == 'RO' or current_country == 'SK' or current_country == 'SI' or current_country == 'ES' or current_country == 'SE' or current_country == 'NO' or current_country == 'CH' or current_country == 'IS'
+                    echo 'aria-current="true"'
+                  endif
+                %}
+                data-value="{{ eu_country }}"
+              >
+                Europe
+              </a>
+            </li>
+          {% endif %}
+
+          {% if has_uk %}
+            <li class="localization-item" tabindex="-1">
+              <a
+                href="#"
+                {% if current_country == 'GB' %}
+                  aria-current="true"
+                {% endif %}
+                data-value="{{ uk_country }}"
+              >
+                United Kingdom
+              </a>
+            </li>
+          {% endif %}
+
+          {% if has_us %}
+            <li class="localization-item" tabindex="-1">
+              <a
+                href="#"
+                {% liquid
+                  if current_country == 'US' or current_country == 'CA' or current_country == 'MX' or current_country == 'BR' or current_country == 'AR' or current_country == 'CL' or current_country == 'CO' or current_country == 'PE'
+                    echo 'aria-current="true"'
+                  endif
+                %}
+                data-value="{{ us_country }}"
+              >
+                North & South America
+              </a>
+            </li>
+          {% endif %}
         </ul>
 
         <input
@@ -120,13 +256,13 @@
       <div
         class="localization-wrapper"
         x-data="{ localizationOpen: false }"
-        @click.outside="localizationOpen = false"
+        @click.outside="localizationOpen = false; $dispatch('localization-toggle', { open: false })"
       >
         <button
           type="button"
           class="localization-button"
           aria-controls="LanguageList"
-          @click="localizationOpen = !localizationOpen"
+          @click="localizationOpen = !localizationOpen; $dispatch('localization-toggle', { open: localizationOpen })"
           :class="{ 'localization-open': localizationOpen }"
         >
           {{ localization.language.endonym_name | capitalize }}
