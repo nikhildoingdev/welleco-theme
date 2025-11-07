@@ -98,6 +98,14 @@
             "item_title": "Shop All",
             "item_url": ""
           }
+        },
+        "shop_all_item_GrPCAw": {
+          "type": "shop_all_item",
+          "settings": {
+            "item_image": "shopify://shop_images/new_arrivals.jpg",
+            "item_title": "New Arrivals",
+            "item_url": ""
+          }
         }
       },
       "block_order": [
@@ -106,7 +114,8 @@
         "megamenu_item_AhUFLP",
         "megamenu_item_MHh6aL",
         "megamenu_item_kGALGg",
-        "shop_all_item_CGeRYE"
+        "shop_all_item_CGeRYE",
+        "shop_all_item_GrPCAw"
       ],
       "settings": {
         "logo_position": "middle-center",
