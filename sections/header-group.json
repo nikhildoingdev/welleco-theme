@@ -90,6 +90,14 @@
             "item_title": "Welle Community",
             "item_link": ""
           }
+        },
+        "shop_all_item_CGeRYE": {
+          "type": "shop_all_item",
+          "settings": {
+            "item_image": "shopify://shop_images/shop_all.jpg",
+            "item_title": "Shop All",
+            "item_url": ""
+          }
         }
       },
       "block_order": [
@@ -97,7 +105,8 @@
         "megamenu_item_KkDrpa",
         "megamenu_item_AhUFLP",
         "megamenu_item_MHh6aL",
-        "megamenu_item_kGALGg"
+        "megamenu_item_kGALGg",
+        "shop_all_item_CGeRYE"
       ],
       "settings": {
         "logo_position": "middle-center",
