@@ -373,6 +373,7 @@
                       {% endfor %}
                     </div>
                   </div>
+                {% endif %}
 
                   {% comment %} Log in / Account {% endcomment %}
                   <a href="#" class="sub-list__account-link">
@@ -381,7 +382,7 @@
                     </div>
                     {{- 'Log in / Account' | escape -}}
                   </a>
-                {% endif %}
+
 
                 {% if childlink.title == 'Shop By Collection' %}
                   Shop By Collection
