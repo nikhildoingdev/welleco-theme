@@ -114,6 +114,24 @@
             "item_title": "Best Sellers",
             "item_url": ""
           }
+        },
+        "shop_focus_banner_knD3Hx": {
+          "type": "shop_focus_banner",
+          "settings": {
+            "banner_image": "shopify://shop_images/take_quiz.jpg",
+            "banner_text": "Take Our Quiz",
+            "banner_subtext": "Unsure where to begin?",
+            "banner_link": ""
+          }
+        },
+        "shop_focus_banner_RTzV8h": {
+          "type": "shop_focus_banner",
+          "settings": {
+            "banner_image": "shopify://shop_images/ask_question.png",
+            "banner_text": "Ask A Question",
+            "banner_subtext": "Connect with our in-house nutritionist",
+            "banner_link": ""
+          }
         }
       },
       "block_order": [
@@ -124,7 +142,9 @@
         "megamenu_item_kGALGg",
         "shop_all_item_CGeRYE",
         "shop_all_item_GrPCAw",
-        "shop_all_item_tYdpAV"
+        "shop_all_item_tYdpAV",
+        "shop_focus_banner_knD3Hx",
+        "shop_focus_banner_RTzV8h"
       ],
       "settings": {
         "logo_position": "middle-center",
