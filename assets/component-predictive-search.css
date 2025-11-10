@@ -191,3 +191,9 @@ predictive-search form {
   padding-bottom: 1rem;
   border-bottom: .1rem solid rgba(var(--color-foreground), .08);
 }
+
+@media (max-width: 480px) {
+  .results-product-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
