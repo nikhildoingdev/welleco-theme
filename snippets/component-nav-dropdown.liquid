@@ -212,7 +212,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(0 0 0 / .3);
+    background: rgb(0 0 0 / 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -375,22 +375,102 @@
                   </div>
                 {% endif %}
 
-                  {% comment %} Log in / Account {% endcomment %}
-                  <a href="#" class="sub-list__account-link">
-                    <div class="image-wrapper">
-                      <img src="{{ 'login_link.jpg' | asset_url }} " width="100" height="100">
-                    </div>
-                    {{- 'Log in / Account' | escape -}}
-                  </a>
+                {% style %}
+                  .sub-list__collections {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 2.4rem;
+                    padding: 0;
+                    padding-bottom: 4rem;
+                  }
+                  .sub-list__collections > li {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .8rem;
+                  }
+                  .sub-list__collections > li > img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                    aspect-ratio: 1;
+                    background: #f5f5f5;
+                  }
+                  .sub-list__collections > li > span {
+                    font-size: 1.8rem;
+                    font-weight: 500;
+                    letter-spacing: 0.15rem;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    line-height: 1;
+                  }
+                  .sub-list__collections > li > p {
+                    font-size: 1.6rem;
+                    font-weight: 400;
+                    line-height: 1;
+                  }
+                  .line-clamp {
+                    display: block;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+                  @media (max-width: 768px) {
+                    .sub-list__collections {
+                      grid-template-columns: repeat(3, 1fr);
+                      gap: 1.6rem;
+                    }
+                    .sub-list__collections > li > span {
+                      font-size: 1.6rem;
+                    }
+                    .sub-list__collections > li > p {
+                      font-size: 1.4rem;
+                    }
+                  }
+
+                  @media (max-width: 480px) {
+                    .sub-list__collections {
+                      grid-template-columns: repeat(2, 1fr);
+                      gap: 1.2rem;
+                    }
+                    .sub-list__collections > li > span {
+                      font-size: 1.4rem;
+                    }
+                    .sub-list__collections > li > p {
+                      font-size: 1.2rem;
+                    }
+                  }
+                {% endstyle %}
+
                 {% if childlink.title == 'Shop By Collection' %}
-                  Shop By Collection
-                  Is it working!
+                  <ul class="sub-list__collections">
+                    {% for collection in collections %}
+                      <li>
+                        <img
+                          src="{{ collection.image | image_url: width: 800, height: 800, crop: 'center' }}"
+                          width="100"
+                          height="100"
+                        >
+                        <span class="line-clamp">{{ collection.title | upcase }}</span>
+                        <p class="line-clamp">{{ collection.description | strip_html | truncatewords: 15 }}</p>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 {% endif %}
 
                 {% if childlink.title == 'Shop By Focus' %}
-                  Shop By Focus
-                  tu to kaam krja bhai
+                  Shop By Focus tu to kaam krja bhai please chal ja bhai kya dikkt hai tjhe
                 {% endif %}
+
+                {% comment %} Log in / Account {% endcomment %}
+                <a href="#" class="sub-list__account-link">
+                  <div class="image-wrapper">
+                    <img src="{{ 'login_link.jpg' | asset_url }} " width="100" height="100">
+                  </div>
+                  {{- 'Log in / Account' | escape -}}
+                </a>
               </ul>
             {% endif %}
           </li>
@@ -433,6 +513,7 @@
             {%- for childlink in link.links -%}
               <li>
                 {% if childlink.links == blank %}
+                  doing some changes here
                   <a
                     href="{{ childlink.url }}"
                     class="header__menu-item"
