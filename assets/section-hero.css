@@ -142,7 +142,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.6rem;
+  padding: 1.4rem;
   width: 100%;
   max-width: 170px;
   background-color: var(--hero-button-color, #FFFFFF);
