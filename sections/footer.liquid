@@ -2,9 +2,15 @@
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
 
 <style>
-  #shopify-section-{{ section.id }} {
-    z-index: 1;
-    position: relative;
+  #shopify-section- {
+          {
+          section.id
+      }
+  }
+
+      {
+      z-index: 1;
+      position: relative;
   }
 </style>
 
@@ -30,9 +36,9 @@
           {%- for block in section.blocks -%}
             <div class="footer-block grid__item" {{ block.shopify_attributes }}>
               {%- case block.type -%}
-                {%- when 'text' -%}
+                {%- when 'download_app' -%}
                   <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
-                  <div class="footer-block__details-content">{{ block.settings.subtext }}</div>
+                  <div class="footer-block__details-content">{{ block.settings.android_url }}</div>
                 {%- when 'link_list' -%}
                   {%- if block.settings.menu != blank -%}
                     <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
@@ -55,14 +61,15 @@
                     {%- render 'component-social-icons', class: 'footer__list-social' -%}
                   </div>
                 {%- when 'brand_information' -%}
-                  <div class="footer-block__brand-info" style="max-width: min(100%, {{ settings.brand_image_width }}px);">
+                  <div
+                    class="footer-block__brand-info"
+                    style="max-width: min(100%, {{ settings.brand_image_width }}px);"
+                  >
                     {%- if settings.brand_image != blank -%}
                       {%- assign brand_image_height = settings.brand_image_width
                         | divided_by: settings.brand_image.aspect_ratio
                       -%}
-                      <div
-                        class="footer-block__image-wrapper"
-                      >
+                      <div class="footer-block__image-wrapper">
                         {{
                           settings.brand_image
                           | image_url: width: 600
@@ -78,12 +85,15 @@
                       <h2 class="footer-block__heading">{{ settings.brand_headline }}</h2>
                     {%- endif -%}
                     {%- if settings.brand_description != blank -%}
-                      <div>{{ settings.brand_description }}</div>
+                      <div class="footer-block__description">{{ settings.brand_description }}</div>
                     {%- endif -%}
                     {%- if block.settings.show_social and has_social_icons -%}
-                      {%- render 'component-social-icons', class: 'footer__list-social' -%}
+                      <div class="footer-block__social-wrapper">
+                        <h2 class="footer-block__social-heading">Connect</h2>
+                        {%- render 'component-social-icons', class: 'footer__list-social' -%}
+                      </div>
                     {%- endif -%}
-                  </div>
+                  </div> 
               {%- endcase -%}
             </div>
           {%- endfor -%}
@@ -122,7 +132,9 @@
     </div>
     <div class="footer__content-bottom-wrapper{% if section.settings.enable_country_selector == false and section.settings.enable_language_selector == false %} footer__content-bottom-wrapper--center{% endif %}">
       <div class="footer__copyright">
-        <small class="copyright__content" >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }} - {{ powered_by_link }} </small>
+        <small class="copyright__content"
+          >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }} - {{ powered_by_link }}
+        </small>
         {%- if section.settings.show_policy -%}
           <ul class="policies">
             {%- for policy in shop.policies -%}
@@ -189,20 +201,20 @@
       ]
     },
     {
-      "type": "text",
-      "name": "t:sections.footer.blocks.text.name",
+      "type": "download_app",
+      "name": "t:sections.footer.blocks.download_app.name",
       "settings": [
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
+          "default": "t:sections.footer.blocks.download_app.settings.heading.default",
+          "label": "t:sections.footer.blocks.download_app.settings.heading.label"
         },
         {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "t:sections.footer.blocks.text.settings.subtext.default",
-          "label": "t:sections.footer.blocks.text.settings.subtext.label"
+          "type": "url",
+          "id": "android_url",
+          "default": "t:sections.footer.blocks.text.settings.android_url.default",
+          "label": "t:sections.footer.blocks.text.settings.android_url.label"
         }
       ]
     }

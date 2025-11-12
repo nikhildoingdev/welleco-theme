@@ -202,11 +202,11 @@
             "show_social": { "label": "Show social media icons", "info": "Displays social icons if links are set in theme settings" }
           }
         },
-        "text": {
-          "name": "Text",
+        "download_app": {
+          "name": "Download app",
           "settings": {
             "heading": { "default": "Heading", "label": "Heading" },
-            "subtext": { "default": "Add your text here.", "label": "Text" }
+            "android_url": { "default": "#", "label": "Android URL" }
           }
         }
       },
