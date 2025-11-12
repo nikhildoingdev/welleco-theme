@@ -17,7 +17,7 @@
         "primary_image_background": "shopify://shop_images/hero-left.jpg",
         "primary_video_background_url": "",
         "secondary_background_type": "image",
-        "secondary_image_background": "shopify://shop_images/hero-right.png",
+        "secondary_image_background": "shopify://shop_images/hero-right_upscayl_2x_upscayl-standard-4x.png",
         "secondary_video_background_url": "",
         "overlay_color": "#000000",
         "overlay_opacity": 25,
