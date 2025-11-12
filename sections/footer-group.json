@@ -34,11 +34,12 @@
             "menu": "help"
           }
         },
-        "text_3D9g6x": {
-          "type": "text",
+        "download_app_9GVzGE": {
+          "type": "download_app",
           "settings": {
-            "heading": "Provide 3 distinct proposals in JSON form indexed by keys.",
-            "subtext": "<p>Upgrade Your Kitchen Game with Cookware Fit for Experts</p>"
+            "heading": "Download Our App",
+            "android_app_url": "",
+            "ios_app_url": ""
           }
         }
       },
@@ -46,7 +47,7 @@
         "brand_information_pLUCGY",
         "link_list_xdP99L",
         "link_list_kkNmcT",
-        "text_3D9g6x"
+        "download_app_9GVzGE"
       ],
       "settings": {
         "color_scheme": "scheme-4",
