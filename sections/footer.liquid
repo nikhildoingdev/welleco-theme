@@ -38,7 +38,7 @@
               {%- case block.type -%}
                 {%- when 'download_app' -%}
                   <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
-                  <div class="footer-block__details-content">{{ block.settings.android_url }}</div>
+                  <div class="footer-block__details-content">{{ block.settings.android_app_url }}</div>
                 {%- when 'link_list' -%}
                   {%- if block.settings.menu != blank -%}
                     <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
