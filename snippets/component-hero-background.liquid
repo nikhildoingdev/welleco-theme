@@ -1,4 +1,4 @@
-<div class="hero-banner__background hero-banner__background--{{ slot }}">
+<div class="hero-banner__background hero-banner__background--{{ slot }} mobile-{{ default_image_in_mobile }}">
   {% if type == 'video' %}
     {% if video_hosted != blank %}
       {{ video_hosted | video_tag: autoplay: true, loop: true, muted: true, playsinline: true }}

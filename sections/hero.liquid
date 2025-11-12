@@ -3,6 +3,8 @@
   Displays a banner with either an image or video background, customizable text, and an optional endorsement block.
 {% endcomment %}
 
+
+
 {%- liquid
   assign section_id = 'hero-banner-' | append: section.id
   assign background_layout = section.settings.background_layout
@@ -33,6 +35,8 @@
   assign content_alignment = section.settings.content_alignment
   assign vertical_alignment = section.settings.vertical_alignment
   assign button_color = section.settings.button_color
+
+  assign default_image_in_mobile = section.settings.default_image_in_mobile
 -%}
 
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
@@ -58,6 +62,7 @@
      video_hosted: primary_video_background_hosted,
      video_url: primary_video_background_url,
      slot: 'primary'
+     default_image_in_mobile: default_image_in_mobile
     %}
 
     {% render 'component-hero-background',
@@ -66,6 +71,7 @@
      video_hosted: secondary_video_background_hosted,
      video_url: secondary_video_background_url,
      slot: 'secondary'
+     default_image_in_mobile: default_image_in_mobile
     %}
 
   {% else %}
@@ -144,6 +150,16 @@
         { "value": "split", "label": "Split" }
       ],
       "default": "single"
+    },
+    {
+      "type": "select",
+      "id": "default_image_in_mobile",
+      "label": "Default Image in Mobile",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" }
+      ],
+      "default": "primary"
     },
     {
       "type": "header",
