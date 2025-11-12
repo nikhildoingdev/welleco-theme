@@ -56,12 +56,11 @@
   position: absolute;
   z-index: 3;
   max-width: 50%;
-  padding: 0 5%;
+  padding: 0 40px;
 }
 
 /* Horizontal content alignment classes */
 .hero-banner-section .hero-banner__content--h-left {
-  left: 5%;
   right: auto;
   text-align: left;
 }
@@ -112,12 +111,21 @@
 
 .hero-banner-section .hero-banner__heading {
   font-size: 4.4rem;
-  margin-bottom: 1.6rem;
   font-weight: 400;
   line-height: 5rem;
   letter-spacing: 0.2rem;
   color: var(--hero-text-color, #FFFFFF);
-  /* Explicitly use variable */
+}
+
+.hero-banner-section .hero-banner__decorative-heading {
+  font-size: 4.4rem;
+  max-width: 600px;
+  font-weight: 400;
+  line-height: 5rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  font-family: 'Nimbus Roman D', serif;
+  margin-bottom: 1.2rem;
 }
 
 .hero-banner-section .hero-banner__description {
@@ -130,17 +138,22 @@
 }
 
 .hero-banner-section .hero-banner__button {
-  display: inline-block;
-  padding: 10px 30px 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6rem;
+  width: 100%;
+  max-width: 170px;
   background-color: var(--hero-button-color, #FFFFFF);
   color: var(--hero-button-text-color, #000000);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 450;
   transition: all 0.3s ease;
   max-width: 211px;
   width: 100%;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.15rem;
 }
 
 .hero-banner-section .hero-banner__button:hover {
@@ -266,15 +279,4 @@
     
     transform: none;
   }
-}
-
-.hero-banner-section .hero-banner__decorative-heading {
-  font-size: 4.4rem;
-  max-width: 600px;
-  font-weight: 400;
-  line-height: 5rem;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  font-family: 'Nimbus Roman D', serif;
-  margin-bottom: 2.4rem;
 }
