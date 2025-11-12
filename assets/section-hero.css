@@ -56,11 +56,12 @@
   position: absolute;
   z-index: 3;
   max-width: 50%;
-  padding: 0 40px;
+  padding: 0 5%;
 }
 
 /* Horizontal content alignment classes */
 .hero-banner-section .hero-banner__content--h-left {
+  left: 0;
   right: auto;
   text-align: left;
 }
@@ -131,8 +132,7 @@
 .hero-banner-section .hero-banner__description {
   font-size: 1.8rem;
   margin-bottom: 3.2rem;
-  font-weight: 400;
-  line-height: 100%;
+  font-weight: 300;
   letter-spacing: 0.04rem;
   max-width: 350px;
 }
