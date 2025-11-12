@@ -206,7 +206,8 @@
           "name": "Download app",
           "settings": {
             "heading": { "default": "Heading", "label": "Heading" },
-            "android_url": { "default": "#", "label": "Android URL" }
+            "android_app_url": { "default": "#", "label": "Android app URL" },
+            "ios_app_url": { "default": "#", "label": "iOS app URL" }
           }
         }
       },
