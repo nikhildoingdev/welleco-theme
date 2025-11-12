@@ -55,7 +55,7 @@
 .hero-banner-section .hero-banner__content {
   position: absolute;
   z-index: 3;
-  max-width: 50%;
+  max-width: 60%;
   padding: 0 5%;
 }
 
@@ -131,9 +131,10 @@
 
 .hero-banner-section .hero-banner__description {
   font-size: 1.8rem;
-  margin-bottom: 3.2rem;
+  margin-bottom: 2.4rem;
   font-weight: 300;
   letter-spacing: 0.04rem;
+  line-height: 1.3;
   max-width: 350px;
 }
 
@@ -181,7 +182,6 @@
   height: auto;
 }
 
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .hero-banner-section {
@@ -214,13 +214,13 @@
     transform: none;
     margin: 0;
     padding: 0;
-    width: 100%;
+    max-width: 100%;
   }
 
   /* Mobile horizontal alignment */
   .hero-banner-section .hero-banner__content--h-left {
     text-align: center;
-    align-self: ;
+    align-self: flex-start;
   }
 
   .hero-banner-section .hero-banner__content--h-center {
@@ -247,8 +247,8 @@
   }
 
   .hero-banner-section .hero-banner__content--v-bottom {
-    align-self: center;
-    margin-top: 86px;
+    align-self: flex-end;
+    margin-top: auto;
     margin-bottom: 20px;
   }
 
@@ -263,21 +263,7 @@
     margin-top: 20px;
   }
 
-  .hero-banner-section .hero-banner__subheading {
-    margin: unset;
-  }
-
-  .hero-banner-section .hero-banner__heading {
-    font-size: 3rem;
-  }
-
-  .hero-banner-section .hero-banner__subheading {
-    font-size: 1.8rem;
-  }
-
   .hero-banner-section .hero-banner__button {
-    font-size: 1.4rem;
-    max-width: 175px;
     margin: auto;
   }
 
