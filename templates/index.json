@@ -13,6 +13,7 @@
       "type": "hero",
       "settings": {
         "background_layout": "split",
+        "default_image_in_mobile": "secondary",
         "primary_background_type": "image",
         "primary_image_background": "shopify://shop_images/hero-left.jpg",
         "primary_video_background_url": "",
