@@ -20,7 +20,8 @@
 
   assign stars_text = section.settings.stars_text
   assign heading = section.settings.heading
-  assign subheading = section.settings.subheading
+  assign decorative_heading = section.settings.decorative_heading
+  assign description = section.settings.description
   assign button_text = section.settings.button_text
   assign button_link = section.settings.button_link
   assign button_text_color = section.settings.button_text_color
@@ -91,8 +92,12 @@
       <h2 class="hero-banner__heading">{{ heading | escape }}</h2>
     {% endif %}
 
-    {% if subheading != blank %}
-      <p class="hero-banner__subheading">{{ subheading | escape }}</p>
+    {% if decorative_heading != blank %}
+      <p class="hero-banner__decorative-heading">{{ decorative_heading | escape }}</p>
+    {% endif %}
+
+    {% if description != blank %}
+      <p class="hero-banner__description">{{ description | escape }}</p>
     {% endif %}
 
     {% if button_text != blank and button_link != blank %}
@@ -266,8 +271,14 @@
     },
     {
       "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
+      "id": "decorative_heading",
+      "label": "Decorative Heading",
+      "default": "Complex benefits."
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
       "default": "Pro level protection for every level"
     },
     {

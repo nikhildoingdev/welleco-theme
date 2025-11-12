@@ -557,8 +557,16 @@
 
 <ul
   class="menu-drawer__navigation"
-  x-data="{ anyMenuOpen: false }"
-  :style="anyMenuOpen ? 'overflow: hidden' : ''"
+  x-data="{ anyMenuOpen: false, scrollPos: 0 }"
+  x-effect="
+    if (anyMenuOpen) {
+      scrollPos = $el.scrollTop;
+      $el.style.overflow = 'hidden';
+      $nextTick(() => { $el.scrollTop = scrollPos; });
+    } else {
+      $el.style.overflow = '';
+    }
+  "
   @menu-state-change.window="anyMenuOpen = $event.detail.open"
 >
   {% assign total_links = menu.links.size %}
