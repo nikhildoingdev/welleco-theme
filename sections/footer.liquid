@@ -47,6 +47,13 @@
                         <img src="{{ 'icon-android.svg' | asset_url }}" alt="Android App">
                       </a>
                     </div>
+                    <div class="footer__localization">
+                      {%- render 'component-localization-form',
+                        enable_country_selector: section.settings.enable_country_selector,
+                        enable_language_selector: section.settings.enable_language_selector,
+                        menu_color_scheme: section.settings.color_scheme
+                      -%}
+                    </div>
                   </div>
                 {%- when 'link_list' -%}
                   {%- if block.settings.menu != blank -%}
@@ -117,13 +124,6 @@
     {% endif %}
   >
     <div class="footer__content-bottom-wrapper">
-      <div class="footer__column footer__localization">
-        {%- render 'component-localization-form',
-          enable_country_selector: section.settings.enable_country_selector,
-          enable_language_selector: section.settings.enable_language_selector,
-          menu_color_scheme: section.settings.color_scheme
-        -%}
-      </div>
       <div class="footer__column footer__column--info">
         {%- if section.settings.payment_enable -%}
           <div class="footer__payment">
