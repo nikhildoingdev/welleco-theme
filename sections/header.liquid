@@ -220,8 +220,7 @@
     stroke: var(--header-text-color);
   }
 
-  .header__actions,
-  .header__actions > * {
+  .header__actions {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -484,12 +483,12 @@
       localizationOpen: false
     }
   "
-  {% if settings.cart_type == 'drawer' %}
-    @cart-open.window="cartOpen = true"
-  {% endif %}
   @scroll.window="scrolled = window.scrollY > 0"
   @localization-toggle.window="localizationOpen = $event.detail.open"
   :class="{ 'scrolled': scrolled || localizationOpen }"
+  {% if settings.cart_type == 'drawer' %}
+    @cart-open.window="cartOpen = true"
+  {% endif %}
 >
   <header
     {% if section.settings.menu_position == 'center' %}
@@ -576,16 +575,15 @@
 
       {% comment %} Cart {% endcomment %}
       <a
+        class="header__cart-button"
         {%- if settings.cart_type == 'drawer' -%}
           @click.prevent="cartOpen = !cartOpen"
         {%- else -%}
           href="{{ routes.cart_url }}"
         {%- endif -%}
       >
-        <div class="header__cart-button">
-          {{- 'icon-cart.svg' | inline_asset_content -}}
-          <p data-cart-count data-ajax-cart-bind="item_count">{{ cart.item_count }}</p>
-        </div>
+        {{- 'icon-cart.svg' | inline_asset_content -}}
+        <p data-cart-count data-ajax-cart-bind="item_count">{{ cart.item_count }}</p>
       </a>
     </div>
 
