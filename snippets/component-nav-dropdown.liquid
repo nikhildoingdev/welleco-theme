@@ -68,7 +68,7 @@
     gap: 10px;
   }
 
-  .menu-drawer__navigation > .featured-products {
+  .menu-drawer__navigation > .header-featured-products {
     margin-top: 2rem;
     padding-bottom: 3.2rem;
     padding-top: 1.6rem;
@@ -77,7 +77,7 @@
     border-bottom: 1px solid #e1e1e1;
   }
 
-  .featured-products > .product-grid {
+  .header-featured-products > .header-product-grid {
     display: flex;
     gap: 1.2rem;
     width: 100%;
@@ -85,11 +85,11 @@
     overflow-x: auto;
   }
 
-  .featured-products > .product-grid::-webkit-scrollbar {
+  .header-featured-products > .header-product-grid::-webkit-scrollbar {
     display: none;
   }
 
-  .product-grid > .product-card {
+  .header-product-grid > .product-card {
     flex: 0 0 auto;
     min-width: 190px;
     max-width: 250px;
@@ -224,7 +224,7 @@
     text-transform: uppercase;
   }
 
-  .menu-sub-list > .featured-products {
+  .menu-sub-list > .header-featured-products {
     margin-bottom: 2rem;
   }
 
@@ -645,9 +645,9 @@
                   </ul>
 
                   {% comment %} Featured Products {% endcomment %}
-                  <div class="featured-products">
-                    <h2 class="featured-products__heading">{{ section.settings.products_heading }}</h2>
-                    <div class="product-grid">
+                  <div class="header-featured-products">
+                    <h2 class="header-featured-products__heading">{{ section.settings.products_heading }}</h2>
+                    <div class="header-product-grid">
                       {% for product in collections[section.settings.collection].products
                         limit: section.settings.products_count
                       %}
@@ -728,9 +728,9 @@
           </li>
         {%- endfor -%}
         {% if link.title == 'Shop' and section.settings.show_products %}
-          <div class="featured-products">
-            <h2 class="featured-products__heading">{{ section.settings.products_heading }}</h2>
-            <div class="product-grid">
+          <div class="header-featured-products">
+            <h2 class="header-featured-products__heading">{{ section.settings.products_heading }}</h2>
+            <div class="header-product-grid">
               {% for product in collections[section.settings.collection].products
                 limit: section.settings.products_count
               %}
