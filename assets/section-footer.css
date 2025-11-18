@@ -15,7 +15,17 @@
 
 .footer__content-bottom {
   border-top: solid 0.1rem rgba(var(--color-foreground), 0.08);
-  padding-top: 2rem;
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__content-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .footer__content-bottom:only-child {
@@ -25,8 +35,6 @@
 .footer__content-bottom-wrapper {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  padding: 0 25px;
 }
 
 .footer__localization:empty + .footer__column--info {
@@ -140,7 +148,9 @@
   padding: 0;
   max-height: 60vh;
   overflow: auto;
-  bottom: 100%;
+  bottom: calc(100% + 1.4rem);
+  background: #fff;
+  color: #181818;
 }
 
 .footer__content-bottom-wrapper--center {
@@ -254,7 +264,9 @@ li.list-social__item a {
 }
 
 .copyright__content {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.05rem;
+  font-weight: 400;
   display: flex;
   align-items: center;
 }
@@ -407,15 +419,15 @@ li.list-social__item a {
 /* List Payment */
 .list-payment {
   display: flex;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 0;/
+  padding: 0;
 }
 
 .list-payment__item {
   align-items: center;
   display: flex;
-  padding: 0.5rem;
 }
 
 /* List Social */
@@ -843,6 +855,11 @@ ul.footer-block__details-content a.link.link--text.list-menu__item.list-menu__it
   .footer-block__download-links {
     flex-direction: row;
   }
+
+  .footer__localization .localization-list {
+    left: 0;
+    right: auto;
+  }
 }
 
 .footer-block__download-link {
@@ -857,6 +874,14 @@ ul.footer-block__details-content a.link.link--text.list-menu__item.list-menu__it
 
 .grid__item {
   max-width: fit-content !important;
-  overflow: hidden !important;
 }
 
+.footer__localization .localization-button svg path {
+  fill: #fff;
+}
+
+@media screen and (min-width: 1111px) {
+  .footer__localization {
+    display: none;
+  }
+}

@@ -484,8 +484,8 @@
     }
   "
   @scroll.window="scrolled = window.scrollY > 0"
-  @localization-toggle.window="localizationOpen = $event.detail.open"
   :class="{ 'scrolled': scrolled || localizationOpen }"
+  @localization-toggle.window="localizationOpen = $event.detail.open"
   {% if settings.cart_type == 'drawer' %}
     @cart-open.window="cartOpen = true"
   {% endif %}

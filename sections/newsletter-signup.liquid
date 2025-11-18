@@ -1,0 +1,207 @@
+{{ 'section-newsletter-signup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-newsletter-signup.js' | asset_url }}" type="module"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<newsletter-signup
+  class="newsletter-signup color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+  data-section="{{ section.id }}"
+>
+  <div class="newsletter-signup__container page-width">
+    <div class="newsletter-signup__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="newsletter-signup__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="newsletter-signup__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      <div class="newsletter-signup__form-wrapper">
+        {%- form 'customer', id: 'newsletter-signup-form', class: 'newsletter-signup__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          <div class="newsletter-signup__field-wrapper">
+            <div class="field">
+              <input
+                type="email"
+                name="contact[email]"
+                id="NewsletterForm-{{ section.id }}"
+                class="field__input newsletter-signup__input"
+                value="{% if customer %}{{ customer.email }}{% endif %}"
+                placeholder="{{ section.settings.email_placeholder | default: 'Enter your email address' }}"
+                aria-required="true"
+                required
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                  aria-invalid="true"
+                  aria-describedby="NewsletterForm-error-{{ section.id }}"
+                {% endif %}
+              >
+            </div>
+
+            <div class="newsletter-signup__buttons">
+              <button
+                type="submit"
+                class="newsletter-signup__button newsletter-signup__button--primary"
+                name="commit"
+                aria-label="{{ section.settings.button_text | default: 'Sign up' }}"
+              >
+                {{ section.settings.button_text | default: 'SIGN UP' }}
+              </button>
+
+              {%- if section.settings.show_sms_button -%}
+                <button
+                  type="button"
+                  class="newsletter-signup__button newsletter-signup__button--secondary"
+                  aria-label="{{ section.settings.sms_button_text | default: 'SMS Sign up' }}"
+                >
+                  {{ section.settings.sms_button_text | default: 'SMS SIGN UP' }}
+                </button>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if form.errors -%}
+            <div
+              class="newsletter-signup__message newsletter-signup__message--error"
+              id="NewsletterForm-error-{{ section.id }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-error.svg' | inline_asset_content -}}
+              </span>
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </div>
+          {%- elsif form.posted_successfully? -%}
+            <div
+              class="newsletter-signup__message newsletter-signup__message--success"
+              id="NewsletterForm-success-{{ section.id }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-success.svg' | inline_asset_content -}}
+              </span>
+              {{ section.settings.success_message | default: 'Thank you for subscribing!' }}
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      {%- if section.settings.consent_text != blank -%}
+        <div class="newsletter-signup__consent">
+          <span class="newsletter-signup__consent-icon">
+            <input type="checkbox" name="consent" id="consent ">
+          </span>
+          <div class="newsletter-signup__consent-text">{{ section.settings.consent_text }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</newsletter-signup>
+
+{% schema %}
+{
+  "name": "Newsletter Signup",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the WelleCommunity"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Sign up now to receive $10 off your next order and exclusive wellness tips from Elle Macpherson.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SIGN UP"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sms_button",
+      "label": "Show SMS signup button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sms_button_text",
+      "label": "SMS button text",
+      "default": "SMS SIGN UP"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "richtext",
+      "id": "consent_text",
+      "label": "Consent text",
+      "default": "<p>I agree for WelleCo to contact me via email with product information, exclusive offers, nutrition and wellness content.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup"
+    }
+  ]
+}
+{% endschema %}

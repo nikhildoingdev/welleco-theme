@@ -129,8 +129,21 @@
           <div class="footer__payment">
             <ul class="list-payment" role="list">
               {%- for type in shop.enabled_payment_types -%}
+                {%- liquid
+                  assign payment_icon = 'icon-' | append: type | append: '.svg'
+                -%}
                 <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon' }}
+                  {%- comment -%} Try to use custom icon, fallback to default Shopify SVG {%- endcomment -%}
+                  {%- if section.settings.use_custom_payment_icons -%}
+                    <img
+                      src="{{ payment_icon | asset_url }}"
+                      alt="{{ type | capitalize }}"
+                      class="icon"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {{ type | payment_type_svg_tag: class: 'icon' }}
+                  {%- endif -%}
                 </li>
               {%- endfor -%}
             </ul>
@@ -141,7 +154,7 @@
     <div class="footer__content-bottom-wrapper{% if section.settings.enable_country_selector == false and section.settings.enable_language_selector == false %} footer__content-bottom-wrapper--center{% endif %}">
       <div class="footer__copyright">
         <small class="copyright__content"
-          >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }} - {{ powered_by_link }}
+          >&copy; 2025 All rights reserved
         </small>
         {%- if section.settings.show_policy -%}
           <ul class="policies">
@@ -271,6 +284,13 @@
       "id": "payment_enable",
       "default": true,
       "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_payment_icons",
+      "default": false,
+      "label": "Use custom payment icons",
+      "info": "Enable to use custom SVG icons from assets folder (e.g., icon-visa.svg, icon-mastercard.svg)"
     },
     {
       "type": "header",

@@ -11,6 +11,13 @@
   "type": "footer",
   "name": "t:general.footer",
   "sections": {
+    "newsletter-signup": {
+      "type": "newsletter-signup",
+      "settings": {
+        "heading": "Join the WelleCommunity",
+        "description": "<p>Sign up now to receive $10 off your next order and exclusive wellness tips from Elle Macpherson.</p>"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -60,6 +67,7 @@
     }
   },
   "order": [
+    "newsletter-signup",
     "footer"
   ]
 }
