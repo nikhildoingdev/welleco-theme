@@ -36,9 +36,67 @@
         "show_endorsement": false,
         "endorsement_name": ""
       }
+    },
+    "featured_products_7gLg93": {
+      "type": "featured-products",
+      "blocks": {
+        "product_card_Ct6RUL": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_card_6LzzXC": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_card_hWgPah": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_card_79b968": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_card_HCtLC7": {
+          "type": "product_card",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_Ct6RUL",
+        "product_card_6LzzXC",
+        "product_card_hWgPah",
+        "product_card_79b968",
+        "product_card_HCtLC7"
+      ],
+      "name": "Featured Products",
+      "settings": {
+        "heading": "Shop the Pro Selection",
+        "subheading": "Skate like the pros",
+        "view_all_text": "View All",
+        "view_all_url": "",
+        "heading_alignment": "center",
+        "show_view_all_as_button": true,
+        "button_background_color": "#2E2E2E",
+        "button_text_color": "#ffffff",
+        "product_content_alignment": "left",
+        "review_content_alignment": "left",
+        "product_info_text_color": "#111111",
+        "stars_color": "#FFD700"
+      }
     }
   },
   "order": [
-    "hero_1"
+    "hero_1",
+    "featured_products_7gLg93"
   ]
 }
