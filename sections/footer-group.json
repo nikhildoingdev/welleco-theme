@@ -14,8 +14,17 @@
     "newsletter-signup": {
       "type": "newsletter-signup",
       "settings": {
+        "color_scheme": "",
         "heading": "Join the WelleCommunity",
-        "description": "<p>Sign up now to receive $10 off your next order and exclusive wellness tips from Elle Macpherson.</p>"
+        "description": "<p>Sign up now to receive $10 off your next order and exclusive wellness tips from Elle Macpherson.</p>",
+        "email_placeholder": "Enter your email address",
+        "button_text": "SIGN UP",
+        "show_sms_button": true,
+        "sms_button_text": "SMS SIGN UP",
+        "success_message": "Thank you for subscribing!",
+        "consent_text": "<p>I agree for WelleCo to contact me via email with product information, exclusive offers, nutrition and wellness content.</p>",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "footer": {
@@ -61,6 +70,7 @@
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
+        "use_custom_payment_icons": true,
         "show_policy": false,
         "margin_top": 60
       }
