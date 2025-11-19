@@ -228,7 +228,7 @@
       "settings": {
         "heading": "AS SEEN IN",
         "heading_alignment": "center",
-        "show_divider": true
+        "show_divider": false
       }
     }
   },
