@@ -136,21 +136,19 @@
 
 .featured-articles__button {
   display: inline-block;
-  padding: 1.2rem 3rem;
-  background-color: transparent;
   color: #181818;
-  border: 1px solid #181818;
-  text-decoration: none;
-  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  font-weight: 500;
   font-size: 14px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15rem;
   text-transform: uppercase;
+  margin-top: -0.5rem;
   transition: all 0.3s ease;
 }
 
 .featured-articles__button:hover {
-  background-color: #181818;
-  color: #fff;
+  text-decoration-thickness: 2px;
 }
 
 /* Swiper */
