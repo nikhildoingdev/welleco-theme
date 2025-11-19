@@ -1,0 +1,206 @@
+/* Brand Discovery Section */
+
+.brand-discovery {
+  width: 100%;
+  background-color: var(--brand-discovery-bg-color, #F5F5F0);
+  color: var(--brand-discovery-text-color, #000000);
+}
+
+.brand-discovery__images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--brand-discovery-image-gap, 0);
+  width: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 990px) {
+  .brand-discovery__images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+.brand-discovery__image-block {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.brand-discovery__image-block--grayscale .brand-discovery__image {
+  filter: grayscale(100%);
+}
+
+.brand-discovery__image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.brand-discovery__image-wrapper--placeholder {
+  background-color: rgba(var(--color-foreground), 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-discovery__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.brand-discovery__placeholder {
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.brand-discovery__overlay-text {
+  position: absolute;
+  color: var(--brand-discovery-block-text-color, #FFFFFF);
+  font-size: var(--brand-discovery-block-text-size, 16px);
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+  text-transform: capitalize;
+  z-index: 2;
+  padding: 1.6rem;
+  line-height: 1.4;
+}
+
+.brand-discovery__overlay-text--top-left {
+  top: 0;
+  left: 0;
+  text-align: left;
+}
+
+.brand-discovery__overlay-text--top-right {
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+
+.brand-discovery__overlay-text--center-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+.brand-discovery__overlay-text--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.brand-discovery__overlay-text--center-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+.brand-discovery__overlay-text--bottom-left {
+  bottom: 0;
+  left: 0;
+  text-align: left;
+}
+
+.brand-discovery__overlay-text--bottom-right {
+  bottom: 0;
+  right: 0;
+  text-align: right;
+}
+
+.brand-discovery__content {
+  display: flex;
+  flex-direction: column;
+  align-items: var(--brand-discovery-content-alignment, center);
+  text-align: var(--brand-discovery-content-alignment, center);
+  padding: 4rem;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 749px) {
+  .brand-discovery__content {
+    padding: 3.2rem 2rem;
+  }
+}
+
+.brand-discovery__heading {
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  line-height: 130%;
+  text-transform: uppercase;
+  margin: 0 0 1.6rem 0;
+  color: var(--brand-discovery-heading-color, #000000);
+}
+
+@media screen and (max-width: 749px) {
+  .brand-discovery__heading {
+    font-size: 1.8rem;
+  }
+}
+
+.brand-discovery__description {
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 2.275rem;
+  letter-spacing: 0.05rem;
+  margin: 0 0 3.2rem 0;
+  color: var(--brand-discovery-text-color, #000000);
+  max-width: 80rem;
+}
+
+@media screen and (max-width: 749px) {
+  .brand-discovery__description {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}
+
+.brand-discovery__button {
+  display: inline-block;
+  padding: 1.8rem 3rem;
+  background-color: var(--brand-discovery-button-bg, #000000);
+  color: var(--brand-discovery-button-text, #FFFFFF);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 1.4rem;
+  min-width: 15rem;
+  text-align: center;
+  max-width: 17rem;
+  text-decoration: none;
+}
+
+.brand-discovery__button:hover {
+  background-color: transparent;
+  color: var(--brand-discovery-button-bg, #000000);
+}
+
+@media screen and (max-width: 749px) {
+  .brand-discovery__button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-discovery__button {
+    transition: none;
+  }
+
+  .brand-discovery__button:hover {
+    transform: none;
+  }
+}
+
