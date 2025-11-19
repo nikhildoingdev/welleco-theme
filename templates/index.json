@@ -367,6 +367,7 @@
         "post_79EMf8": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social1.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -374,6 +375,7 @@
         "post_XtXMAg": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social2.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -381,6 +383,7 @@
         "post_V8fR8Q": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social3.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -388,6 +391,7 @@
         "post_Ythgnw": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/social4.jpg",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -395,6 +399,7 @@
         "post_XnEVE7": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social5.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -402,6 +407,7 @@
         "post_qbcCMT": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social6.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -409,6 +415,7 @@
         "post_a8drL7": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social7.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -416,6 +423,7 @@
         "post_QrUJgB": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social8.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -423,6 +431,7 @@
         "post_XtPhhk": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/social9.jpg",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -430,6 +439,7 @@
         "post_C6XYxy": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social10.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -437,6 +447,7 @@
         "post_AXX3qy": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/social11.jpg",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
@@ -444,6 +455,7 @@
         "post_p8xrXG": {
           "type": "post",
           "settings": {
+            "video": "shopify://files/videos/social12.mp4",
             "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
             "link": ""
           }
