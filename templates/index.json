@@ -245,6 +245,60 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "proof_points_DfCKTe": {
+      "type": "proof-points",
+      "blocks": {
+        "grid_item_DJ7cV8": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/proof2.jpg",
+            "label": "INNOVATION"
+          }
+        },
+        "grid_item_YNUJU4": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/proof3.png",
+            "label": "CERTIFICATION"
+          }
+        },
+        "grid_item_kdAnPi": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/proof4.jpg",
+            "label": "AWARDS"
+          }
+        },
+        "grid_item_B6HJqX": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/proof5.jpg",
+            "label": "INGREDIENTS"
+          }
+        }
+      },
+      "block_order": [
+        "grid_item_DJ7cV8",
+        "grid_item_YNUJU4",
+        "grid_item_kdAnPi",
+        "grid_item_B6HJqX"
+      ],
+      "name": "Proof Points",
+      "settings": {
+        "heading": "Innovative formulas.",
+        "heading_italic": "Science-backed expertise.",
+        "button_text": "DISCOVER MORE",
+        "button_link": "shopify://collections",
+        "stat_image": "shopify://shop_images/proof1.jpg",
+        "stat_number": "91%",
+        "stat_text": "saw results within 30 days of daily use",
+        "button_bg_color": "#000000",
+        "button_text_color": "#FFFFFF",
+        "button_border_color": "#000000",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -252,6 +306,7 @@
     "featured_products_7gLg93",
     "brand_discovery_b4aTxq",
     "media_logos_TWVc9e",
-    "products_quiz_q9xjTm"
+    "products_quiz_q9xjTm",
+    "proof_points_DfCKTe"
   ]
 }
