@@ -356,9 +356,9 @@
         "heading_italic": "JOURNAL",
         "description": "Inspiring the WelleCommunity on their beauty-through-wellness journey.",
         "button_text": "EXPLORE MORE",
-        "button_url": "",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "button_url": "shopify://collections",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
