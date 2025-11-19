@@ -1,8 +1,8 @@
 /* sections/featured-articles.liquid */
 
 .featured-articles-section {
-  padding-top: var(--section-padding-top, 40px);
-  padding-bottom: var(--section-padding-bottom, 40px);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
   background-color: #F5F5F0;
 }
 
