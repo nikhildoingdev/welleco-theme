@@ -20,9 +20,11 @@
       <div class="featured-articles__header">
         {%- if heading != blank or heading_italic != blank -%}
           <h2 class="featured-articles__heading">
-            {%- if heading != blank -%}{{ heading | escape }}{%- endif -%}
+            {%- if heading != blank -%}
+              <em class="featured-articles__heading-italic"> {{ heading | escape }}</em>
+            {%- endif -%}
             {%- if heading_italic != blank -%}
-              <em class="featured-articles__heading-italic">{{ heading_italic | escape }}</em>
+              {{ heading_italic | escape }}
             {%- endif -%}
           </h2>
         {%- endif -%}
