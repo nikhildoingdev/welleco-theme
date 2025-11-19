@@ -308,8 +308,8 @@
           "settings": {
             "article": "",
             "custom_image": "shopify://shop_images/article1.webp",
-            "category": "BLOG CATEGORY",
-            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "category": "Lifestyle",
+            "headline": "Embracing menopause with kindness, rather than fear.",
             "article_url": ""
           }
         },
@@ -318,8 +318,8 @@
           "settings": {
             "article": "",
             "custom_image": "shopify://shop_images/article2.webp",
-            "category": "BLOG CATEGORY",
-            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "category": "Energy",
+            "headline": "Why Self-Care Isn’t Selfish During Hormonal Change",
             "article_url": ""
           }
         },
@@ -328,8 +328,8 @@
           "settings": {
             "article": "",
             "custom_image": "shopify://shop_images/article3.webp",
-            "category": "BLOG CATEGORY",
-            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "category": "Elle's Edit",
+            "headline": "Ask Elle: How can I stop being a perfectionist?",
             "article_url": ""
           }
         },
@@ -338,8 +338,8 @@
           "settings": {
             "article": "",
             "custom_image": "shopify://shop_images/article4.jpg",
-            "category": "BLOG CATEGORY",
-            "headline": "Inspiring the WelleCommunity on their beauty-through-wellness journey.",
+            "category": "Elle's Edit",
+            "headline": "Eat Welle With Elle Macpherson",
             "article_url": ""
           }
         }
