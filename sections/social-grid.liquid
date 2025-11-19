@@ -21,11 +21,11 @@
       {%- endif -%}
 
       <div class="social-grid__grid">
-        {%- for block in section.blocks -%}
-          {%- assign post_image = block.settings.image -%}
-          {%- assign post_video = block.settings.video -%}
-          {%- assign post_content = block.settings.content -%}
-          {%- assign post_link = block.settings.link -%}
+          {%- for block in section.blocks -%}
+            {%- assign post_image = block.settings.image -%}
+            {%- assign post_video = block.settings.video -%}
+            {%- assign post_link = block.settings.link -%}
+            {%- comment -%}post_content saved for future modal implementation{%- endcomment -%}
 
           <div class="social-grid__item" {{ block.shopify_attributes }}>
             {%- if post_link != blank -%}
@@ -34,10 +34,27 @@
 
             <div class="social-grid__media">
               {%- if post_video != blank -%}
-                {{
-                  post_video
-                  | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'social-grid__video'
-                }}
+                {%- if post_video.preview_image != blank -%}
+                  <img
+                    srcset="
+                      {%- if post_video.preview_image.width >= 300 -%}{{ post_video.preview_image | image_url: width: 300 }} 300w,{%- endif -%}
+                      {%- if post_video.preview_image.width >= 500 -%}{{ post_video.preview_image | image_url: width: 500 }} 500w,{%- endif -%}
+                      {{ post_video.preview_image | image_url }} {{ post_video.preview_image.width }}w
+                    "
+                    src="{{ post_video.preview_image | image_url: width: 500 }}"
+                    sizes="(min-width: 1200px) 16vw, (min-width: 990px) 20vw, 50vw"
+                    alt="Video thumbnail"
+                    loading="lazy"
+                    width="{{ post_video.preview_image.width }}"
+                    height="{{ post_video.preview_image.height }}"
+                    class="social-grid__image"
+                  >
+                {%- else -%}
+                  {{
+                    post_video
+                    | video_tag: autoplay: false, loop: false, muted: true, controls: false, preload: 'none', class: 'social-grid__video'
+                  }}
+                {%- endif -%}
                 <div class="social-grid__overlay">
                   <svg
                     class="social-grid__icon social-grid__icon--video"

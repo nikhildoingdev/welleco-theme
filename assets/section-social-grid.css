@@ -7,7 +7,7 @@
 }
 
 .social-grid-content {
-  padding: 0 2rem;
+  padding-inline: 0;
 }
 
 .social-grid__heading {
@@ -31,6 +31,7 @@
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .social-grid__link {
@@ -89,8 +90,8 @@
 }
 
 .social-grid__icon {
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
