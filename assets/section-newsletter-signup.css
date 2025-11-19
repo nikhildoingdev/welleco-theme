@@ -141,15 +141,14 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 1.2rem 2.4rem;
-  font-size: 1.3rem;
-  font-weight: 400;
+  padding: 1.4rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid transparent;
-  min-height: 4rem;
   white-space: nowrap;
   width: 22rem;
 }
@@ -169,18 +168,17 @@
 .newsletter-signup__button--primary:hover {
   background-color: rgb(var(--color-button-text));
   color: rgb(var(--color-button));
-  border-color: rgb(var(--color-button-text));
 }
 
 .newsletter-signup__button--secondary {
-  background-color: transparent;
-  color: rgb(var(--color-foreground));
-  border-color: rgba(var(--color-foreground), 0.3);
+  background-color: rgb(var(--color-button-text));
+  color: rgb(var(--color-button));
+  border-color: rgb(var(--color-button));
 }
 
 .newsletter-signup__button--secondary:hover {
-  background-color: rgba(var(--color-foreground), 0.05);
-  border-color: rgba(var(--color-foreground), 0.5);
+  background-color: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
 }
 
 .newsletter-signup__button:focus-visible {
