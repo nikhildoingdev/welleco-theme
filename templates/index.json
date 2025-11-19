@@ -227,8 +227,20 @@
       "name": "Media Logos",
       "settings": {
         "heading": "AS SEEN IN",
-        "heading_alignment": "center",
-        "show_divider": false
+        "heading_alignment": "center"
+      }
+    },
+    "products_quiz_q9xjTm": {
+      "type": "products-quiz",
+      "name": "Products Quiz",
+      "settings": {
+        "image": "shopify://shop_images/quiz.jpg",
+        "heading": "FIND YOUR WELLNESS JOURNEY",
+        "description": "Unsure which WelleCo product is right for you?",
+        "button_text": "TAKE OUR QUIZ",
+        "button_link": "",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
@@ -236,6 +248,7 @@
     "hero_1",
     "featured_products_7gLg93",
     "brand_discovery_b4aTxq",
-    "media_logos_TWVc9e"
+    "media_logos_TWVc9e",
+    "products_quiz_q9xjTm"
   ]
 }
