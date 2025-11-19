@@ -1,0 +1,124 @@
+{% comment %} /sections/products-quiz.liquid {% endcomment %}
+
+{{ 'section-products-quiz.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign description = section.settings.description
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+  assign image = section.settings.image
+-%}
+
+<div
+  class="products-quiz-section"
+  style="
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="products-quiz__container">
+    <div class="products-quiz__image-wrapper">
+      {%- if image != blank -%}
+        <img
+          srcset="
+            {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+            {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if image.width >= 1000 -%}{{ image | image_url: width: 1000 }} 1000w,{%- endif -%}
+            {{ image | image_url }} {{ image.width }}w
+          "
+          src="{{ image | image_url: width: 750 }}"
+          sizes="(min-width: 990px) 50vw, 100vw"
+          alt="{{ image.alt | default: heading | escape }}"
+          loading="lazy"
+          width="{{ image.width }}"
+          height="{{ image.height }}"
+          class="products-quiz__image"
+        >
+      {%- else -%}
+        <div class="products-quiz__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="products-quiz__content">
+      {%- if heading != blank -%}
+        <h2 class="products-quiz__heading">{{ heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if description != blank -%}
+        <p class="products-quiz__description">{{ description | escape }}</p>
+      {%- endif -%}
+
+      {%- if button_text != blank and button_link != blank -%}
+        <a href="{{ button_link }}" class="products-quiz__button">
+          {{ button_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Products Quiz",
+  "tag": "section",
+  "class": "products-quiz",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FIND YOUR WELLNESS JOURNEY"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Unsure which WelleCo product is right for you?"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "TAKE OUR QUIZ"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Quiz"
+    }
+  ]
+}
+{% endschema %}

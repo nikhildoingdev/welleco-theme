@@ -1,0 +1,159 @@
+{% comment %} /sections/media-logos.liquid {% endcomment %}
+
+{{ 'section-media-logos.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign heading_alignment = section.settings.heading_alignment
+  assign show_divider = section.settings.show_divider
+  assign logos_to_show = section.blocks.size
+-%}
+
+{%- if logos_to_show > 0 -%}
+  <div class="media-logos-section">
+    {%- if heading != blank -%}
+      <div
+        class="media-logos__header"
+        style="text-align: {{ heading_alignment }};"
+      >
+        <h2 class="media-logos__heading">{{ heading | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="media-logos__grid">
+      {%- for block in section.blocks -%}
+        {%- assign logo_image = block.settings.logo -%}
+        {%- assign logo_alt = block.settings.logo_alt -%}
+        {%- assign logo_link = block.settings.logo_link -%}
+
+        <div class="media-logos__item" {{ block.shopify_attributes }}>
+          {%- if logo_link != blank -%}
+            <a
+              href="{{ logo_link }}"
+              class="media-logos__link"
+              {% if block.settings.open_in_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+          {%- endif -%}
+
+          {%- if logo_image != blank -%}
+            <img
+              srcset="
+                {%- if logo_image.width >= 150 -%}{{ logo_image | image_url: width: 150 }} 150w,{%- endif -%}
+                {%- if logo_image.width >= 300 -%}{{ logo_image | image_url: width: 300 }} 300w,{%- endif -%}
+                {{ logo_image | image_url }} {{ logo_image.width }}w
+              "
+              src="{{ logo_image | image_url: width: 300 }}"
+              sizes="(min-width: 990px) 150px, (min-width: 769px) 130px, 100px"
+              alt="{{ logo_alt | default: logo_image.alt | escape }}"
+              loading="lazy"
+              width="{{ logo_image.width }}"
+              height="{{ logo_image.height }}"
+              class="media-logos__image"
+            >
+          {%- else -%}
+            <div class="media-logos__placeholder">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          {%- if logo_link != blank -%}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if show_divider -%}
+      <div class="media-logos__divider"></div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Media Logos",
+  "tag": "section",
+  "class": "media-logos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "AS SEEN IN"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show Divider",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "text",
+          "id": "logo_alt",
+          "label": "Logo Alt Text",
+          "info": "Describe the logo for accessibility"
+        },
+        {
+          "type": "url",
+          "id": "logo_link",
+          "label": "Logo Link (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open Link in New Tab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media Logos",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,153 @@
+/* sections/media-logos.liquid */
+
+.media-logos-section {
+  padding: 4rem 8rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.media-logos__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.media-logos__heading {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.media-logos__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.media-logos__item {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-logos__link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.media-logos__link:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.media-logos__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.media-logos__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.media-logos__placeholder .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 60px;
+  opacity: 0.3;
+}
+
+.media-logos__divider {
+  margin-top: 4rem;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #e0e0e0 20%,
+    #e0e0e0 80%,
+    transparent 100%
+  );
+}
+
+/* Large screens - space between logos */
+@media (min-width: 1260px) {
+  .media-logos__grid {
+    justify-content: space-between;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 990px) {
+  .media-logos-section {
+    padding: 3rem 4rem;
+  }
+
+  .media-logos__header {
+    margin-bottom: 3rem;
+  }
+
+  .media-logos__heading {
+    font-size: 1.2rem;
+  }
+
+  .media-logos__grid {
+    gap: 30px;
+  }
+
+  .media-logos__item {
+    width: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .media-logos-section {
+    padding: 2rem 1.6rem;
+  }
+
+  .media-logos__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .media-logos__heading {
+    font-size: 1rem;
+  }
+
+  .media-logos__grid {
+    gap: 20px;
+  }
+
+  .media-logos__item {
+    width: 120px;
+  }
+
+  .media-logos__divider {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .media-logos__grid {
+    gap: 15px;
+  }
+
+  .media-logos__item {
+    width: 100px;
+  }
+}
+
