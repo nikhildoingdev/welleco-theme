@@ -104,6 +104,7 @@
         "image_block_hLBAj4": {
           "type": "image_block",
           "settings": {
+            "image": "shopify://shop_images/discovery2.gif",
             "overlay_text": "",
             "text_position": "bottom-left",
             "image_filter": "color",
@@ -114,6 +115,7 @@
         "image_block_DWnkTN": {
           "type": "image_block",
           "settings": {
+            "image": "shopify://shop_images/discovery3.png",
             "overlay_text": "",
             "text_position": "bottom-left",
             "image_filter": "color",
@@ -124,8 +126,9 @@
         "image_block_6wfP6W": {
           "type": "image_block",
           "settings": {
-            "overlay_text": "",
-            "text_position": "bottom-left",
+            "image": "shopify://shop_images/discovery4.png",
+            "overlay_text": "With wellness you can",
+            "text_position": "center",
             "image_filter": "color",
             "text_color": "#FFFFFF",
             "text_size": 16
