@@ -360,6 +360,115 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "social_grid_MzbMrL": {
+      "type": "social-grid",
+      "blocks": {
+        "post_79EMf8": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_XtXMAg": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_V8fR8Q": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_Ythgnw": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_XnEVE7": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_qbcCMT": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_a8drL7": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_QrUJgB": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_XtPhhk": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_C6XYxy": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_AXX3qy": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        },
+        "post_p8xrXG": {
+          "type": "post",
+          "settings": {
+            "content": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_79EMf8",
+        "post_XtXMAg",
+        "post_V8fR8Q",
+        "post_Ythgnw",
+        "post_XnEVE7",
+        "post_qbcCMT",
+        "post_a8drL7",
+        "post_QrUJgB",
+        "post_XtPhhk",
+        "post_C6XYxy",
+        "post_AXX3qy",
+        "post_p8xrXG"
+      ],
+      "name": "Social Grid",
+      "settings": {
+        "heading": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -369,6 +478,7 @@
     "media_logos_TWVc9e",
     "products_quiz_q9xjTm",
     "proof_points_DfCKTe",
-    "featured_articles_ezPrMj"
+    "featured_articles_ezPrMj",
+    "social_grid_MzbMrL"
   ]
 }
