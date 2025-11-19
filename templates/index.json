@@ -299,6 +299,67 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "featured_articles_ezPrMj": {
+      "type": "featured-articles",
+      "blocks": {
+        "article_card_9zgTdM": {
+          "type": "article_card",
+          "settings": {
+            "article": "",
+            "custom_image": "shopify://shop_images/article1.webp",
+            "category": "BLOG CATEGORY",
+            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "article_url": ""
+          }
+        },
+        "article_card_Yyh7m8": {
+          "type": "article_card",
+          "settings": {
+            "article": "",
+            "custom_image": "shopify://shop_images/article2.webp",
+            "category": "BLOG CATEGORY",
+            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "article_url": ""
+          }
+        },
+        "article_card_LKteNw": {
+          "type": "article_card",
+          "settings": {
+            "article": "",
+            "custom_image": "shopify://shop_images/article3.webp",
+            "category": "BLOG CATEGORY",
+            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "article_url": ""
+          }
+        },
+        "article_card_cEBBhp": {
+          "type": "article_card",
+          "settings": {
+            "article": "",
+            "custom_image": "shopify://shop_images/article4.jpg",
+            "category": "BLOG CATEGORY",
+            "headline": "Read the headline of a journal article over two or three lines of text if required.",
+            "article_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "article_card_9zgTdM",
+        "article_card_Yyh7m8",
+        "article_card_LKteNw",
+        "article_card_cEBBhp"
+      ],
+      "name": "Featured Articles",
+      "settings": {
+        "heading": "The",
+        "heading_italic": "JOURNAL",
+        "description": "Supporting description text with bold or italic for emphasis.",
+        "button_text": "EXPLORE MORE",
+        "button_url": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
@@ -307,6 +368,7 @@
     "brand_discovery_b4aTxq",
     "media_logos_TWVc9e",
     "products_quiz_q9xjTm",
-    "proof_points_DfCKTe"
+    "proof_points_DfCKTe",
+    "featured_articles_ezPrMj"
   ]
 }
