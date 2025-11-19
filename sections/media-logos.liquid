@@ -5,7 +5,6 @@
 {%- liquid
   assign heading = section.settings.heading
   assign heading_alignment = section.settings.heading_alignment
-  assign show_divider = section.settings.show_divider
   assign logos_to_show = section.blocks.size
 -%}
 
@@ -65,10 +64,6 @@
         </div>
       {%- endfor -%}
     </div>
-
-    {%- if show_divider -%}
-      <div class="media-logos__divider"></div>
-    {%- endif -%}
   </div>
 {%- endif -%}
 
@@ -103,12 +98,6 @@
         }
       ],
       "default": "center"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_divider",
-      "label": "Show Divider",
-      "default": true
     }
   ],
   "blocks": [
