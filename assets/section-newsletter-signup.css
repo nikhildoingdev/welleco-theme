@@ -23,7 +23,7 @@
 
 @media screen and (max-width: 990px) {
   .newsletter-signup__content {
-    padding: 0;
+    padding: 1.6rem;
   }
 }
 
@@ -262,4 +262,3 @@
 .newsletter-signup__consent-text p {
   margin: 0;
 }
-

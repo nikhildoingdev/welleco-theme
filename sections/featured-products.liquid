@@ -15,19 +15,12 @@
   assign show_view_all_as_button = section.settings.show_view_all_as_button
   assign button_background_color = section.settings.button_background_color
   assign button_text_color = section.settings.button_text_color
-  assign product_content_alignment = section.settings.product_content_alignment
-  assign review_content_alignment = section.settings.review_content_alignment
-  assign product_info_text_color = section.settings.product_info_text_color
-  assign stars_color = section.settings.stars_color
 -%}
 
 <style>
   .featured-products-section {
     --button-bg-color: {{ button_background_color }};
     --button-text-color: {{ button_text_color }};
-    --product-content-alignment: {{ product_content_alignment }};
-    --review-content-alignment: {{ review_content_alignment }};
-    --stars-color: {{ stars_color }};
   }
 </style>
 
@@ -66,74 +59,15 @@
         <div class="swiper-wrapper">
           {%- for block in section.blocks -%}
             {%- assign product = block.settings.product -%}
-            <div class="featured-products__card swiper-slide" {{ block.shopify_attributes }}>
-              <div class="product-card">
-                <a href="{{ product.url | default: '#' }}" class="product-card__link">
-                  <div class="product-card__image-wrapper">
-                    {%- if product.featured_media -%}
-                      {%- assign image = product.featured_media.preview_image -%}
-                      <img
-                        srcset="
-                          {%- if image.width >= 350 -%}{{ image | image_url: width: 350 }} 350w,{%- endif -%}
-                          {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {{ image | image_url }} {{ image.width }}w
-                        "
-                        src="{{ image | image_url: width: 750 }}"
-                        sizes="(min-width: 990px) calc(var(--page-width) / 4 - 2rem * 3 / 4), (min-width: 750px) calc(100vw / 2 - 2rem / 2 - 4rem), calc(100vw / 2 - 1rem / 2 - 2rem)"
-                        alt="{{ image.alt | escape }}"
-                        loading="lazy"
-                        width="264"
-                        height="317"
-                        class="product-card__image"
-                      >
-                    {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-card__image' }}
-                    {%- endif -%}
-
-                    {%- assign saved_amount = product.compare_at_price
-                      | minus: product.price
-                      | money_without_trailing_zeros
-                    -%}
-                    {%- if product.compare_at_price > product.price -%}
-                      <span class="product-card__badge">Save {{ saved_amount }}</span>
-                    {%- endif -%}
-                  </div>
-
-                  <div class="product-card__info product-card__info--{{ product_content_alignment }}">
-                    {% comment %} Placeholder for reviews/ratings {% endcomment %}
-                    <div class="product-card__reviews product-card__reviews--{{ review_content_alignment }}">
-                      <span class="visually-hidden">Rating:</span>
-                      <span class="product-card__stars" style="color: {{ stars_color | default: '#FFD700' }}"
-                        >★★★★☆</span
-                      >
-                      <a href="#reviews" class="product-card__review-link">
-                        <span class="product-card__review-count">10 Reviews</span>
-                      </a>
-                    </div>
-                    <h3 class="product-card__title" style="color: {{ product_info_text_color | default: '#111111' }}">
-                      {{ product.title | default: 'Product Title' }}
-                    </h3>
-                    <div class="product-card__price" style="color: {{ product_info_text_color | default: '#111111' }}">
-                      {%- if product.price -%}
-                        {%- if product.compare_at_price > product.price -%}
-                          <s class="price__compare-at">{{ product.compare_at_price | money }}</s>
-                        {%- endif -%}
-                        <span class="price__regular {% if product.compare_at_price > product.price %}price--on-sale{% endif %}">
-                          {{ product.price | money }}
-                        </span>
-                      {% else %}
-                        <span class="price__regular">
-                          {{ 20000 | money }}
-                        </span>
-                      {% endif %}
-                    </div>
-                  </div>
-                </a>
+            {%- if product != blank -%}
+              <div class="featured-products__card swiper-slide" {{ block.shopify_attributes }}>
+                {% render 'component-product-card',
+                  card_product: product,
+                  section_id: section.id
+                  quick_add: 'standard'
+                %}
               </div>
-            </div>
+            {%- endif -%}
           {%- endfor -%}
         </div>
       </div>
