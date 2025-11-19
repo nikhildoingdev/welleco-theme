@@ -1,0 +1,186 @@
+{% comment %} /sections/social-grid.liquid {% endcomment %}
+
+{{ 'section-social-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign posts_to_show = section.blocks.size
+-%}
+
+{%- if posts_to_show > 0 -%}
+  <div
+    class="social-grid-section"
+    style="
+      --section-padding-top: {{ section.settings.padding_top }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    "
+  >
+    <div class="page-width social-grid-content">
+      {%- if heading != blank -%}
+        <h2 class="social-grid__heading">{{ heading | escape }}</h2>
+      {%- endif -%}
+
+      <div class="social-grid__grid">
+        {%- for block in section.blocks -%}
+          {%- assign post_image = block.settings.image -%}
+          {%- assign post_video = block.settings.video -%}
+          {%- assign post_content = block.settings.content -%}
+          {%- assign post_link = block.settings.link -%}
+
+          <div class="social-grid__item" {{ block.shopify_attributes }}>
+            {%- if post_link != blank -%}
+              <a href="{{ post_link }}" class="social-grid__link" target="_blank" rel="noopener noreferrer">
+            {%- endif -%}
+
+            <div class="social-grid__media">
+              {%- if post_video != blank -%}
+                {{
+                  post_video
+                  | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'social-grid__video'
+                }}
+                <div class="social-grid__overlay">
+                  <svg
+                    class="social-grid__icon social-grid__icon--video"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="24" cy="24" r="23" stroke="white" stroke-width="2"/>
+                    <path d="M19 16L33 24L19 32V16Z" fill="white"/>
+                  </svg>
+                </div>
+              {%- elsif post_image != blank -%}
+                <img
+                  srcset="
+                    {%- if post_image.width >= 300 -%}{{ post_image | image_url: width: 300 }} 300w,{%- endif -%}
+                    {%- if post_image.width >= 500 -%}{{ post_image | image_url: width: 500 }} 500w,{%- endif -%}
+                    {{ post_image | image_url }} {{ post_image.width }}w
+                  "
+                  src="{{ post_image | image_url: width: 500 }}"
+                  sizes="(min-width: 1200px) 16vw, (min-width: 990px) 20vw, 50vw"
+                  alt="{{ post_image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ post_image.width }}"
+                  height="{{ post_image.height }}"
+                  class="social-grid__image"
+                >
+                <div class="social-grid__overlay">
+                  <svg
+                    class="social-grid__icon social-grid__icon--instagram"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect x="9" y="9" width="30" height="30" rx="6" stroke="white" stroke-width="2"/>
+                    <circle cx="24" cy="24" r="6" stroke="white" stroke-width="2"/>
+                    <circle cx="32" cy="16" r="1.5" fill="white"/>
+                  </svg>
+                </div>
+              {%- else -%}
+                <div class="social-grid__placeholder">
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%}
+                Hidden content for backend/modal use
+                {%- if post_content != blank -%}
+                  <div class="social-grid__content--hidden" style="display: none;">
+                    {{ post_content }}
+                  </div>
+                {%- endif -%}
+              {%- endcomment -%}
+            </div>
+
+            {%- if post_link != blank -%}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Social Grid",
+  "tag": "section",
+  "class": "social-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Follow Us"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Social Post",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video (optional - overrides image)"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Post Content",
+          "default": "<p>Add your post content here. You can add <strong>bold text</strong>, <em>italic text</em>, and more.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Grid",
+      "blocks": [
+        { "type": "post" },
+        { "type": "post" },
+        { "type": "post" },
+        { "type": "post" },
+        { "type": "post" },
+        { "type": "post" }
+      ]
+    }
+  ]
+}
+{% endschema %}
