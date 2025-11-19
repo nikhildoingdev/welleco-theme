@@ -361,11 +361,11 @@
 }
 
 .featured-products__swiper-arrows .swiper-button-prev {
-  left: -20px;
+  left: 20px;
 }
 
 .featured-products__swiper-arrows .swiper-button-next {
-  right: -20px;
+  right: 20px;
 }
 
 /* Hide Swiper's default arrow icons completely */

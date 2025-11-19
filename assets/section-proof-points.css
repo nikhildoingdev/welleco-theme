@@ -19,7 +19,6 @@
   align-items: flex-start;
   justify-content: center;
   padding: 4rem 6rem;
-  background-color: #f9f9f9;
 }
 
 .proof-points__heading {
@@ -27,7 +26,7 @@
   font-size: 48px;
   font-weight: 400;
   line-height: 1.2;
-  color: #000;
+  color: #181818;
   letter-spacing: -0.5px;
 }
 
@@ -42,9 +41,9 @@
 .proof-points__button {
   display: inline-block;
   padding: 1.8rem 3rem;
-  background-color: var(--button-bg, #000000);
-  color: var(--button-text, #FFFFFF);
-  border: 1px solid var(--button-border, #000000);
+  background-color: #181818;
+  color: #FFFFFF;
+  border: 1px solid #181818;
   text-decoration: none;
   font-weight: 500;
   text-transform: uppercase;
@@ -60,13 +59,13 @@
 
 .proof-points__button:hover {
   background-color: transparent;
-  color: var(--button-bg, #000000);
+  color: #181818;
 }
 
 .proof-points__stat-image-wrapper {
   position: relative;
   width: 100%;
-  height: 720px;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -82,7 +81,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 720px;
+  height: 100%;
   background-color: #f5f5f5;
 }
 
@@ -92,6 +91,17 @@
   opacity: 0.3;
 }
 
+.proof-points__stat-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
 .proof-points__stat-overlay {
   position: absolute;
   top: 50%;
@@ -99,6 +109,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   color: #fff;
+  z-index: 2;
 }
 
 .proof-points__stat-number {
@@ -110,7 +121,7 @@
 }
 
 .proof-points__stat-text {
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 400;
   line-height: 1.4;
   max-width: 200px;
@@ -130,6 +141,17 @@
   position: relative;
   overflow: hidden;
   height: 640px;
+}
+
+.proof-points__grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .proof-points__grid-image {
@@ -156,14 +178,18 @@
 
 .proof-points__grid-label {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: #fff;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 /* Tablet */
@@ -177,22 +203,14 @@
     margin-bottom: 2.5rem;
   }
 
-  .proof-points__stat-number {
-    font-size: 100px;
-  }
-
-  .proof-points__stat-text {
-    font-size: 14px;
-  }
-
   .proof-points__grid {
     grid-template-columns: repeat(2, 1fr);
+    height: auto;
   }
 
-  .proof-points__grid-label {
-    bottom: 1.5rem;
-    left: 1.5rem;
-    font-size: 12px;
+  .proof-points__grid-item {
+    height: auto;
+    max-height: 400px;
   }
 }
 
@@ -206,13 +224,12 @@
   .proof-points__content {
     order: 2;
     padding: 3rem 2rem;
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .proof-points__stat-image-wrapper {
     order: 1;
-    min-height: 400px;
   }
 
   .proof-points__heading {
@@ -220,23 +237,12 @@
     margin-bottom: 2rem;
   }
 
-  .proof-points__stat-number {
-    font-size: 80px;
-  }
-
-  .proof-points__stat-text {
-    font-size: 13px;
-    max-width: 180px;
-  }
-
   .proof-points__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .proof-points__grid-label {
-    bottom: 1rem;
-    left: 1rem;
-    font-size: 11px;
+    font-size: 1.8rem;
   }
 }
 
@@ -248,25 +254,6 @@
 
   .proof-points__heading {
     font-size: 28px;
-  }
-
-  .proof-points__stat-image-wrapper {
-    min-height: 350px;
-  }
-
-  .proof-points__stat-number {
-    font-size: 70px;
-  }
-
-  .proof-points__stat-text {
-    font-size: 12px;
-    max-width: 150px;
-  }
-
-  .proof-points__grid-label {
-    bottom: 0.75rem;
-    left: 0.75rem;
-    font-size: 10px;
   }
 }
 
