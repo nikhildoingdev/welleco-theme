@@ -12,10 +12,6 @@
     "main": {
       "type": "product",
       "blocks": {
-        "judge_me_reviews_preview_badge_gnXg6A": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        },
         "title_bpmXVj": {
           "type": "title",
           "settings": {
@@ -115,7 +111,6 @@
         }
       },
       "block_order": [
-        "judge_me_reviews_preview_badge_gnXg6A",
         "title_bpmXVj",
         "price_4XTzqR",
         "text_CmhREB",
@@ -145,56 +140,9 @@
         "variant_label_font_size": 13,
         "variant_label_font_weight": "300"
       }
-    },
-    "17636507381c597615": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_preview_badge_jbgHVg": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_preview_badge_jbgHVg"
-      ],
-      "settings": {}
-    },
-    "1763651026e2441fdd": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_all_reviews_text_UraNh3": {
-          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_all_reviews_text_UraNh3"
-      ],
-      "settings": {}
-    },
-    "1763651051efc81ca7": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_VX6fDU": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_VX6fDU"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "main",
-    "17636507381c597615",
-    "1763651026e2441fdd",
-    "1763651051efc81ca7"
+    "main"
   ]
 }
