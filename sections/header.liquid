@@ -7,7 +7,7 @@
 
 
     position: {% unless section.settings.sticky_header_type == 'none' %}sticky{% else %}relative{% endunless %};
-    top: 40px;
+    top: 36px;
     width: 100%;
     {% if section.settings.show_line_separator %}
       border-bottom: 1px solid rgb(var(--color-foreground), 0.2);
@@ -18,9 +18,37 @@
   }
 
   /* Header States */
-  /* Scrolled */
+  /* Scrolled or on non-index pages */
   .header-wrapper {
-     &.scrolled, &:hover {
+     &.scrolled {
+      --header-bg: #fff;
+      --header-text-color: #181818;
+
+      .header__logo {
+        filter: brightness(0);
+      }
+
+      #main-header {
+        border-bottom: 2px solid #e1e1e1;
+      }
+     }
+
+     /* Hover effect only on index page */
+     &:not(.header-wrapper--static):hover {
+      --header-bg: #fff;
+      --header-text-color: #181818;
+
+      .header__logo {
+        filter: brightness(0);
+      }
+
+      #main-header {
+        border-bottom: 2px solid #e1e1e1;
+      }
+     }
+
+     /* Static style for all pages except index */
+     &.header-wrapper--static {
       --header-bg: #fff;
       --header-text-color: #181818;
 
@@ -63,13 +91,13 @@
     gap: 0 3rem;
     margin-inline: auto;
     padding: 0 4rem;
-    height: 86px;
+    height: 86.8px;
     background: var(--header-bg);
     border-bottom: 2px solid transparent;
     transition: background 0.3s ease, border .3s ease;
 
   }
-  #main-header:hover {
+  .header-wrapper:not(.header-wrapper--static) #main-header:hover {
     background-color: #fff;
   }
   #main-header .header-shop_link {
@@ -179,7 +207,7 @@
     transition: filter .3s ease;
   }
 
-  #main-header:hover .header-logo {
+  .header-wrapper:not(.header-wrapper--static) #main-header:hover .header-logo {
     filter: brightness(0);
   }
   {% if section.settings.sticky_header_type == 'reduce-logo-size' %}
@@ -473,7 +501,7 @@
 
 {% comment %} HTML {% endcomment %}
 <div
-  class="color-{{ section.settings.color_scheme }} header-wrapper"
+  class="color-{{ section.settings.color_scheme }} header-wrapper {% unless request.page_type == 'index' %}header-wrapper--static{% endunless %}"
   x-data="
     {
       {% if settings.cart_type == 'drawer' %}
